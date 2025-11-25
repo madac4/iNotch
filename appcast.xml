@@ -1,10 +1,64 @@
 <?xml version='1.0' encoding='utf-8'?>
 <rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
     <channel>
-        <item><title>iNotch 1.1</title><pubDate>Tue, 25 Nov 2025 12:59:49 +0000</pubDate><sparkle:version>2</sparkle:version><sparkle:shortVersionString>1.1</sparkle:shortVersionString><sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion><description>&lt;h1&gt;iNotch 1.1&lt;/h1&gt;&lt;p&gt;Update description here&lt;/p&gt;</description><enclosure url="https://github.com/madac4/iNotch/releases/download/v1.1/iNotch-v1.1.dmg" length="2801527" type="application/octet-stream" sparkle:edSignature="77TlpBR/TgUhOlyndWkPT85DHMGlCDuHb5Ygh5mPrIHQ/gUvQ+g9pFaATeK7qjenpm8MymZE88BQ+AeVTpIaBw==" /></item><title>iNotch</title>
+        <title>iNotch</title>
         <description>iNotch Update Feed</description>
         <language>en</language>
         
+        <item>
+            <title>iNotch 1.1.2</title>
+            <pubDate>Tue, 25 Nov 2025 16:14:49 +0000</pubDate>
+            <sparkle:version>3</sparkle:version>
+            <sparkle:shortVersionString>1.1.2</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <description><![CDATA[
+                <h1>iNotch 1.1.2</h1>
+                <h2>🐛 Bug Fixes</h2>
+                <h3>Notch Display</h3>
+                <ul>
+                    <li><strong>Fixed notch sizing on external displays</strong> - The notch now displays correctly on Macs without a physical camera notch or external displays, with proper rounded corners and appropriate sizing</li>
+                    <li><strong>Improved notch width calculation</strong> - Default width adjusted from 985px to 185px for better compatibility</li>
+                </ul>
+                <h3>Audio Spectrum</h3>
+                <ul>
+                    <li><strong>Enhanced audio spectrum visibility</strong> - Improved gradient colors for better visibility on dark album art</li>
+                    <li><strong>Fixed gradient direction</strong> - Audio spectrum now displays with white gradient from bottom to top for better visual appeal</li>
+                    <li><strong>Better color handling</strong> - Audio spectrum now properly uses album art colors with automatic brightness adjustment for dark artwork</li>
+                </ul>
+                <h3>Music Player</h3>
+                <ul>
+                    <li><strong>Fixed progress bar drag delay</strong> - Music progress bar now responds immediately when dragging or clicking, eliminating the previous delay</li>
+                    <li><strong>Improved progress bar responsiveness</strong> - Enhanced real-time updates and smoother interaction</li>
+                </ul>
+                <h2>🎨 UI Improvements</h2>
+                <ul>
+                    <li><strong>Smoother animations</strong> - Refined animation timing for audio spectrum bars</li>
+                    <li><strong>Better visual feedback</strong> - Improved hover and interaction states</li>
+                </ul>
+            ]]></description>
+            <enclosure 
+                url="https://github.com/madac4/iNotch/releases/download/v1.1.2/iNotch-v1.1.2.dmg" 
+                length="2804201" 
+                type="application/octet-stream" 
+                sparkle:edSignature="LZSXmq1VUPg6LlN9ke2FNAg7yWpp6PP89b47b9eCg2Sdpbn49WT4blxiDXMltzbMMivLPYhxSkIa85GPBQO3DQ==" />
+        </item>
+        
+        <item>
+            <title>iNotch 1.1</title>
+            <pubDate>Tue, 25 Nov 2025 12:59:49 +0000</pubDate>
+            <sparkle:version>2</sparkle:version>
+            <sparkle:shortVersionString>1.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <description><![CDATA[
+                <h1>iNotch 1.1</h1>
+                <p>Update description here</p>
+            ]]></description>
+            <enclosure 
+                url="https://github.com/madac4/iNotch/releases/download/v1.1/iNotch-v1.1.dmg" 
+                length="2801527" 
+                type="application/octet-stream" 
+                sparkle:edSignature="77TlpBR/TgUhOlyndWkPT85DHMGlCDuHb5Ygh5mPrIHQ/gUvQ+g9pFaATeK7qjenpm8MymZE88BQ+AeVTpIaBw==" />
+        </item>
         
         <item>
             <title>iNotch 1.0</title>
@@ -12,18 +66,22 @@
             <sparkle:version>1</sparkle:version>
             <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <description>
-                &lt;h1&gt;iNotch 1.0&lt;/h1&gt;
-                &lt;p&gt;Initial release of iNotch&lt;/p&gt;
-                &lt;h2&gt;Features:&lt;/h2&gt;
-                &lt;ul&gt;
-                    &lt;li&gt;Music player integration&lt;/li&gt;
-                    &lt;li&gt;Volume and battery sneak peeks&lt;/li&gt;
-                    &lt;li&gt;Beautiful notch UI&lt;/li&gt;
-                    &lt;li&gt;Auto-update support&lt;/li&gt;
-                &lt;/ul&gt;
-            </description>
-            <enclosure url="https://github.com/madac4/iNotch/releases/download/v1.1/iNotch-v1.1.dmg" length="10000000" type="application/octet-stream" sparkle:edSignature="YOUR_ED_SIGNATURE_HERE" />
+            <description><![CDATA[
+                <h1>iNotch 1.0</h1>
+                <p>Initial release of iNotch</p>
+                <h2>Features:</h2>
+                <ul>
+                    <li>Music player integration</li>
+                    <li>Volume and battery sneak peeks</li>
+                    <li>Beautiful notch UI</li>
+                    <li>Auto-update support</li>
+                </ul>
+            ]]></description>
+            <enclosure 
+                url="https://github.com/madac4/iNotch/releases/download/v1.1/iNotch-v1.1.dmg" 
+                length="10000000" 
+                type="application/octet-stream" 
+                sparkle:edSignature="YOUR_ED_SIGNATURE_HERE" />
         </item>
     </channel>
 </rss>
