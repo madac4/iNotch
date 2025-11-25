@@ -32,7 +32,7 @@ class AudioSpectrumNSView: NSView {
     private func setupBars() {
         let barWidth: CGFloat = 2
         let barCount = 5
-        let spacing: CGFloat = barWidth
+        let spacing: CGFloat = barWidth - 0.5
         let totalWidth = CGFloat(barCount) * (barWidth + spacing)
         let totalHeight: CGFloat = 14
         frame.size = CGSize(width: totalWidth, height: totalHeight)
@@ -46,8 +46,8 @@ class AudioSpectrumNSView: NSView {
             
             let path = NSBezierPath(
                 roundedRect: CGRect(x: 0, y: 0, width: barWidth, height: totalHeight),
-                xRadius: barWidth / 2,
-                yRadius: barWidth / 2
+                xRadius: barWidth,
+                yRadius: barWidth
             )
             barLayer.path = path.cgPath
             
@@ -73,13 +73,12 @@ class AudioSpectrumNSView: NSView {
         for barLayer in barLayers {
             let animation = CABasicAnimation(keyPath: "transform.scale.y")
             animation.fromValue = barLayer.presentation()?.value(forKeyPath: "transform.scale.y") ?? 0.35
-            animation.toValue = CGFloat.random(in: 0.35 ... 1.0)
-            animation.duration = 0.3
+            animation.toValue = CGFloat.random(in: 0.1 ... 1.0)
+            animation.duration = 0.4
             animation.autoreverses = true
             animation.fillMode = .forwards
             animation.isRemovedOnCompletion = false
             
-            // Optimize for 24 FPS on macOS 13+
             if #available(macOS 13.0, *) {
                 animation.preferredFrameRateRange = CAFrameRateRange(
                     minimum: 24,
@@ -95,7 +94,7 @@ class AudioSpectrumNSView: NSView {
     private func resetBars() {
         for barLayer in barLayers {
             barLayer.removeAllAnimations()
-            barLayer.transform = CATransform3DMakeScale(1, 0.3, 1)
+            barLayer.transform = CATransform3DMakeScale(1, 0.2, 1)
         }
     }
     
@@ -150,9 +149,8 @@ struct AudioSpectrum: NSViewRepresentable {
             .ignoresSafeArea()
         
         AudioSpectrum()
-            .frame(width: 20, height: 14)
+            .frame(width: 16, height: 14)
     }
-    .frame(width: 100, height: 50)
     .onAppear {
         MusicManager.shared.isPlaying = true
     }

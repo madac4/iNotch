@@ -1,0 +1,46 @@
+<?xml version="1.0" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>iNotch</title>
+        <description>iNotch Update Feed</description>
+        <language>en</language>
+        
+        <!-- 
+            MARK: - Update Item Template
+            Copy this item for each new release and update the values below:
+            
+            1. Update <title> with version name
+            2. Update <pubDate> with release date (RFC 822 format)
+            3. Update <sparkle:version> with build number (must be higher than previous)
+            4. Update <sparkle:shortVersionString> with version string (e.g., "1.0", "1.1")
+            5. Update <description> with release notes (HTML format)
+            6. Update <enclosure url> with download URL
+            7. Update <enclosure length> with file size in bytes
+            8. Update <enclosure sparkle:edSignature> with signature from sign_update tool
+        -->
+        <item>
+            <title>iNotch 1.0</title>
+            <pubDate>Mon, 01 Jan 2025 12:00:00 +0000</pubDate>
+            <sparkle:version>1</sparkle:version>
+            <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <description><![CDATA[
+                <h1>iNotch 1.0</h1>
+                <p>Initial release of iNotch</p>
+                <h2>Features:</h2>
+                <ul>
+                    <li>Music player integration</li>
+                    <li>Volume and battery sneak peeks</li>
+                    <li>Beautiful notch UI</li>
+                    <li>Auto-update support</li>
+                </ul>
+            ]]></description>
+            <enclosure 
+                url="https://github.com/yourusername/iNotch/releases/download/v1.0/iNotch.dmg" 
+                length="10000000" 
+                type="application/octet-stream" 
+                sparkle:edSignature="YOUR_ED_SIGNATURE_HERE"/>
+        </item>
+    </channel>
+</rss>
+

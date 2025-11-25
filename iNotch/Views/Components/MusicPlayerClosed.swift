@@ -24,7 +24,7 @@ struct MusicPlayerClosed: View {
                 Spacer()
                 
                 AudioSpectrum()
-                    .frame(width: 16, height: 14)
+                    .frame(width: 16, height: 12)
                 
                 Spacer().frame(width: 8)
             }

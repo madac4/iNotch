@@ -210,7 +210,6 @@ struct MusicProgressView: View {
     var onValueChange: (Double) -> Void
     
     var currentElapsedTime: Double {
-        // Если пользователь перетаскивает, возвращаем текущее значение sliderValue
         if dragging {
             return sliderValue
         }
@@ -232,7 +231,9 @@ struct MusicProgressView: View {
                 ProgressView(value: duration > 0 ? currentElapsedTime / duration : 0)
                     .progressViewStyle(.linear)
                     .tint(.white)
-                    .frame(height: 3)
+                    .frame(height: 6)
+                    .background(Color.white.opacity(0.15))
+                    .clipShape(Capsule())
                     .gesture(
                         DragGesture(minimumDistance: 0)
                             .onChanged { value in
@@ -250,7 +251,7 @@ struct MusicProgressView: View {
                             }
                     )
             }
-            .frame(height: 3)
+            .frame(height: 6)
             
             Text(formatTime(duration))
                 .font(.system(size: 11))
@@ -258,8 +259,6 @@ struct MusicProgressView: View {
                 .monospacedDigit()
         }
         .onChange(of: currentDate) { _, _ in
-            // ВАЖНО: Обновляем sliderValue на каждом тике TimelineView
-            // Это заставляет view перерисовываться с новым временем
             if !dragging {
                 let timeDifference = isPlaying ? currentDate.timeIntervalSince(timestampDate) : 0
                 let calculated = elapsedTime + (timeDifference * playbackRate)

@@ -1,46 +1,29 @@
-<?xml version="1.0" standalone="yes"?>
+<?xml version='1.0' encoding='utf-8'?>
 <rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
     <channel>
-        <title>iNotch</title>
+        <item><title>iNotch 1.1</title><pubDate>Tue, 25 Nov 2025 12:59:49 +0000</pubDate><sparkle:version>2</sparkle:version><sparkle:shortVersionString>1.1</sparkle:shortVersionString><sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion><description>&lt;h1&gt;iNotch 1.1&lt;/h1&gt;&lt;p&gt;Update description here&lt;/p&gt;</description><enclosure url="https://github.com/madac4/iNotch/releases/download/v1.1/iNotch-v1.1.dmg" length="2801527" type="application/octet-stream" sparkle:edSignature="77TlpBR/TgUhOlyndWkPT85DHMGlCDuHb5Ygh5mPrIHQ/gUvQ+g9pFaATeK7qjenpm8MymZE88BQ+AeVTpIaBw==" /></item><title>iNotch</title>
         <description>iNotch Update Feed</description>
         <language>en</language>
         
-        <!-- 
-            MARK: - Update Item Template
-            Copy this item for each new release and update the values below:
-            
-            1. Update <title> with version name
-            2. Update <pubDate> with release date (RFC 822 format)
-            3. Update <sparkle:version> with build number (must be higher than previous)
-            4. Update <sparkle:shortVersionString> with version string (e.g., "1.0", "1.1")
-            5. Update <description> with release notes (HTML format)
-            6. Update <enclosure url> with download URL
-            7. Update <enclosure length> with file size in bytes
-            8. Update <enclosure sparkle:edSignature> with signature from sign_update tool
-        -->
+        
         <item>
             <title>iNotch 1.0</title>
             <pubDate>Mon, 01 Jan 2025 12:00:00 +0000</pubDate>
             <sparkle:version>1</sparkle:version>
             <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <description><![CDATA[
-                <h1>iNotch 1.0</h1>
-                <p>Initial release of iNotch</p>
-                <h2>Features:</h2>
-                <ul>
-                    <li>Music player integration</li>
-                    <li>Volume and battery sneak peeks</li>
-                    <li>Beautiful notch UI</li>
-                    <li>Auto-update support</li>
-                </ul>
-            ]]></description>
-            <enclosure 
-                url="https://github.com/yourusername/iNotch/releases/download/v1.0/iNotch.dmg" 
-                length="10000000" 
-                type="application/octet-stream" 
-                sparkle:edSignature="YOUR_ED_SIGNATURE_HERE"/>
+            <description>
+                &lt;h1&gt;iNotch 1.0&lt;/h1&gt;
+                &lt;p&gt;Initial release of iNotch&lt;/p&gt;
+                &lt;h2&gt;Features:&lt;/h2&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;Music player integration&lt;/li&gt;
+                    &lt;li&gt;Volume and battery sneak peeks&lt;/li&gt;
+                    &lt;li&gt;Beautiful notch UI&lt;/li&gt;
+                    &lt;li&gt;Auto-update support&lt;/li&gt;
+                &lt;/ul&gt;
+            </description>
+            <enclosure url="https://github.com/madac4/iNotch/releases/download/v1.1/iNotch-v1.1.dmg" length="10000000" type="application/octet-stream" sparkle:edSignature="YOUR_ED_SIGNATURE_HERE" />
         </item>
     </channel>
 </rss>
-
