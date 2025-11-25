@@ -14,51 +14,22 @@ struct BatterySneakPeekView: View {
     
     var body: some View {
         HStack(spacing: 4) {
-            Text(state.message)
+            Text(state.title)
                 .font(.system(size: 12, weight: .semibold))
                 .foregroundColor(.white)
                 .lineLimit(1)
             
             Spacer()
         
-            Text("\(state.percentage)%")
+            Text("\(state.value)%")
                 .font(.system(size: 12, weight: .medium))
-                .foregroundColor(eventColor)
+                .foregroundColor(state.valueColor)
             
-            eventIcon
+            Image(systemName: state.icon)
                 .font(.system(size: 16, weight: .semibold))
-                .foregroundColor(eventColor)
+                .foregroundColor(state.iconColor)
             
         }
-        .frame(width: getClosedNotchSize().width * 2, height: getClosedNotchSize().height)
         .background(.black)
-    }
-    
-    // Иконка в зависимости от типа события
-    var eventIcon: Image {
-        switch state.type {
-        case .battery:
-            return Image(systemName: "battery.50")
-        case .lowBattery:
-            return Image(systemName: "battery.0")
-        case .charging:
-            return Image(systemName: "battery.50")
-        case .fullyCharged:
-            return Image(systemName: "battery.100")
-        }
-    }
-    
-    // Цвет в зависимости от события
-    var eventColor: Color {
-        switch state.type {
-        case .battery:
-            return .white
-        case .lowBattery:
-            return .red
-        case .charging:
-            return .green
-        case .fullyCharged:
-            return .green
-        }
     }
 }

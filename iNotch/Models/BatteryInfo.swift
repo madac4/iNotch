@@ -8,5 +8,13 @@
 
 import Foundation
 
-struct BatteryInfo
+struct BatteryInfo {
+    let isCharging: Bool
+    let currentCapacity: Float
+    let maxCapacity: Float
+    
+    var percentage: Int {
+        return Int((currentCapacity / maxCapacity) * 100)
+    }
 
+}

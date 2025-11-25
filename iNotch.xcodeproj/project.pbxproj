@@ -6,14 +6,54 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		9E30688C2ECC798000852444 /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 9E30688B2ECC798000852444 /* Defaults */; };
+		9E30688E2ECC798000852444 /* DefaultsMacros in Frameworks */ = {isa = PBXBuildFile; productRef = 9E30688D2ECC798000852444 /* DefaultsMacros */; };
+		9E700AE02ED50DB900960855 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 9E700ADF2ED50DB900960855 /* Sparkle */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9EED3FBD2ED08A4500BDCD3E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		9E30681F2ECC71E300852444 /* iNotch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iNotch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		9EED3FBE2ED08A4500BDCD3E /* Exceptions for "mediaremote-adapter" folder in "Embed Frameworks" phase from "iNotch" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			attributesByRelativePath = {
+				MediaRemoteAdapter.framework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
+			};
+			buildPhase = 9EED3FBD2ED08A4500BDCD3E /* Embed Frameworks */;
+			membershipExceptions = (
+				MediaRemoteAdapter.framework,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		9E3068212ECC71E300852444 /* iNotch */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = iNotch;
+			sourceTree = "<group>";
+		};
+		9EED3FB72ED089BC00BDCD3E /* mediaremote-adapter */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9EED3FBE2ED08A4500BDCD3E /* Exceptions for "mediaremote-adapter" folder in "Embed Frameworks" phase from "iNotch" target */,
+			);
+			path = "mediaremote-adapter";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -23,6 +63,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E30688C2ECC798000852444 /* Defaults in Frameworks */,
+				9E700AE02ED50DB900960855 /* Sparkle in Frameworks */,
+				9E30688E2ECC798000852444 /* DefaultsMacros in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -34,6 +77,7 @@
 			children = (
 				9E3068212ECC71E300852444 /* iNotch */,
 				9E3068202ECC71E300852444 /* Products */,
+				9EED3FB72ED089BC00BDCD3E /* mediaremote-adapter */,
 			);
 			sourceTree = "<group>";
 		};
@@ -55,6 +99,7 @@
 				9E30681B2ECC71E300852444 /* Sources */,
 				9E30681C2ECC71E300852444 /* Frameworks */,
 				9E30681D2ECC71E300852444 /* Resources */,
+				9EED3FBD2ED08A4500BDCD3E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -62,9 +107,13 @@
 			);
 			fileSystemSynchronizedGroups = (
 				9E3068212ECC71E300852444 /* iNotch */,
+				9EED3FB72ED089BC00BDCD3E /* mediaremote-adapter */,
 			);
 			name = iNotch;
 			packageProductDependencies = (
+				9E30688B2ECC798000852444 /* Defaults */,
+				9E30688D2ECC798000852444 /* DefaultsMacros */,
+				9E700ADF2ED50DB900960855 /* Sparkle */,
 			);
 			productName = iNotch;
 			productReference = 9E30681F2ECC71E300852444 /* iNotch.app */;
@@ -94,6 +143,10 @@
 			);
 			mainGroup = 9E3068162ECC71E300852444;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				9E30688A2ECC798000852444 /* XCRemoteSwiftPackageReference "Defaults" */,
+				9E700ADE2ED50DB900960855 /* XCRemoteSwiftPackageReference "Sparkle" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 9E3068202ECC71E300852444 /* Products */;
 			projectDirPath = "";
@@ -178,7 +231,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -235,7 +288,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -248,18 +301,32 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = iNotch/iNotch.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = K4X5XGM7QR;
 				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/mediaremote-adapter",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iNotch/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = iNotch;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSAppleEventsUsageDescription = "iNotch needs to control music playback";
+				INFOPLIST_KEY_NSAppleScriptEnabled = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = whhroo.iNotch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -278,18 +345,32 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = iNotch/iNotch.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = K4X5XGM7QR;
 				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/mediaremote-adapter",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iNotch/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = iNotch;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSAppleEventsUsageDescription = "iNotch needs to control music playback";
+				INFOPLIST_KEY_NSAppleScriptEnabled = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = whhroo.iNotch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -325,6 +406,43 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9E30688A2ECC798000852444 /* XCRemoteSwiftPackageReference "Defaults" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Defaults";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.6;
+			};
+		};
+		9E700ADE2ED50DB900960855 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9E30688B2ECC798000852444 /* Defaults */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E30688A2ECC798000852444 /* XCRemoteSwiftPackageReference "Defaults" */;
+			productName = Defaults;
+		};
+		9E30688D2ECC798000852444 /* DefaultsMacros */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E30688A2ECC798000852444 /* XCRemoteSwiftPackageReference "Defaults" */;
+			productName = DefaultsMacros;
+		};
+		9E700ADF2ED50DB900960855 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E700ADE2ED50DB900960855 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9E3068172ECC71E300852444 /* Project object */;
 }

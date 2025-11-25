@@ -1,0 +1,36 @@
+//
+//  Constants.swift
+//  iNotch
+//
+//  Created by Petru Orbu on 18.11.2025.
+//
+
+import Defaults
+import SwiftUI
+
+extension Defaults.Keys {
+    static let menubarIcon = Key<Bool>("menubarIcon", default: true)
+    static let notchHeightMode = Key<WindowHeightMode>("notchHeightMode", default: WindowHeightMode.matchRealNotchSize)
+    static let nonNotchHeightMode = Key<WindowHeightMode>("nonNotchHeightMode", default: WindowHeightMode.matchMenuBar)
+    
+    static let nonNotchHeight = Key<CGFloat>("nonNotchHeight", default: 32)
+    static let notchHeight = Key<CGFloat>("notchHeight", default:32)
+    static let cornerRadiusScaling = Key<Bool>("cornerRadiusScaling", default: true)
+    static let extendHoverArea = Key<Bool>("extendHoverArea", default: false)
+    
+    static let inlineHUD = Key<Bool>("inlineHUD", default: false)
+    static let enableGradient = Key<Bool>("enableGradient", default: false)
+    
+    /// Включить тактильную обратную связь
+    static let enableHaptics = Key<Bool>("enableHaptics", default: true)
+
+    /// Чувствительность жестов (чем меньше - тем чувствительнее)
+    static let gestureSensitivity = Key<CGFloat>("gestureSensitivity", default: 50.0)
+
+    /// Открывать notch по hover
+    static let openNotchOnHover = Key<Bool>("openNotchOnHover", default: true)
+
+    /// Минимальная длительность hover для открытия (секунды)
+    static let minimumHoverDuration = Key<TimeInterval>("minimumHoverDuration", default: 0.5)
+
+}
