@@ -12,9 +12,8 @@
 	<key>SUEnableInstallerLauncherService</key>
 	<true/>
 	<key>SUFeedURL</key>
-	<string>https://yourusername.github.io/iNotch/appcast.xml</string>
+	<string>https://raw.githubusercontent.com/madac4/iNotch/refs/heads/main/appcast.xml</string>
 	<key>SUPublicEDKey</key>
 	<string>exADiGTRjHoq5K9mOsAinBSv/67GrL0qtRVhxf+aUuw=</string>
 </dict>
 </plist>
-
