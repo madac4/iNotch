@@ -6,6 +6,7 @@
 //  4 animated bars with random heights
 //
 
+
 import AppKit
 import Cocoa
 import SwiftUI
@@ -31,7 +32,7 @@ class AudioSpectrumNSView: NSView {
 
     private func setupBars() {
         let barWidth: CGFloat = 2
-        let barCount = 5
+        let barCount = 6
         let spacing: CGFloat = barWidth - 0.5
         let totalWidth = CGFloat(barCount) * (barWidth + spacing)
         let totalHeight: CGFloat = 14
@@ -73,8 +74,8 @@ class AudioSpectrumNSView: NSView {
         for barLayer in barLayers {
             let animation = CABasicAnimation(keyPath: "transform.scale.y")
             animation.fromValue = barLayer.presentation()?.value(forKeyPath: "transform.scale.y") ?? 0.35
-            animation.toValue = CGFloat.random(in: 0.1 ... 1.0)
-            animation.duration = 0.4
+            animation.toValue = CGFloat.random(in: 0.15 ... 1.0) 
+            animation.duration = 0.3
             animation.autoreverses = true
             animation.fillMode = .forwards
             animation.isRemovedOnCompletion = false
@@ -94,7 +95,7 @@ class AudioSpectrumNSView: NSView {
     private func resetBars() {
         for barLayer in barLayers {
             barLayer.removeAllAnimations()
-            barLayer.transform = CATransform3DMakeScale(1, 0.2, 1)
+            barLayer.transform = CATransform3DMakeScale(1, 0.35, 1)  // ← Changed from 0.2 to 0.35
         }
     }
     
@@ -106,81 +107,69 @@ class AudioSpectrumNSView: NSView {
             stopAnimating()
         }
     }
-    
-    func setColor(_ color: NSColor) {
+
+	 func setColor(_ color: NSColor) {
         for barLayer in barLayers {
             barLayer.fillColor = color.cgColor
         }
     }
 }
 
-// MARK: - SwiftUI Wrapper
+// MARK: - SwiftUI Wrapper (for masking)
 
-struct AudioSpectrum: NSViewRepresentable {
-    @ObservedObject var musicManager = MusicManager.shared
-    var color: NSColor? = nil
+struct AudioSpectrumView: NSViewRepresentable {
+    @Binding var isPlaying: Bool
     
     func makeNSView(context: Context) -> AudioSpectrumNSView {
         let spectrum = AudioSpectrumNSView()
-        spectrum.setPlaying(musicManager.isPlaying)
-        if let customColor = color {
-            spectrum.setColor(customColor)
-        } else {
-            spectrum.setColor(musicManager.avgColor)
-        }
+        spectrum.setPlaying(isPlaying)
         return spectrum
     }
     
     func updateNSView(_ nsView: AudioSpectrumNSView, context: Context) {
-        nsView.setPlaying(musicManager.isPlaying)
-        if let customColor = color {
-            nsView.setColor(customColor)
-        } else {
-            nsView.setColor(musicManager.avgColor)
+        nsView.setPlaying(isPlaying)
+    }
+}
+
+// MARK: - Gradient Spectrum View (boring.notch style)
+
+struct AudioSpectrum: View {
+    @ObservedObject var musicManager = MusicManager.shared
+    var useAlbumArtColor: Bool = true
+    
+    private func ensureVisibleColor(_ color: NSColor) -> NSColor {
+        guard let rgbColor = color.usingColorSpace(.sRGB) else { return .gray }
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+        rgbColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        
+        let perceivedBrightness = (0.2126 * red + 0.7152 * green + 0.0722 * blue)
+        
+        if perceivedBrightness < 0.2 {
+            let scale = 0.2 / max(perceivedBrightness, 0.01)
+            return NSColor(
+                red: min(red * scale, 1.0),
+                green: min(green * scale, 1.0),
+                blue: min(blue * scale, 1.0),
+                alpha: alpha
+            )
         }
-    }
-}
-
-// MARK: - Preview
-
-#Preview("Audio Spectrum - Playing") {
-    ZStack {
-        Color.black
-            .ignoresSafeArea()
         
-        AudioSpectrum()
-            .frame(width: 16, height: 14)
+        return color
     }
-    .onAppear {
-        MusicManager.shared.isPlaying = true
-    }
-}
-
-#Preview("Audio Spectrum - Paused") {
-    ZStack {
-        Color.black
-            .ignoresSafeArea()
-        
-        AudioSpectrum()
-            .frame(width: 20, height: 14)
-    }
-    .frame(width: 100, height: 50)
-    .onAppear {
-        MusicManager.shared.isPlaying = false
+    
+    var body: some View {
+        Rectangle()
+            .fill(
+                useAlbumArtColor
+                    ? Color(nsColor: ensureVisibleColor(musicManager.avgColor)).gradient
+                    : Color.gray.gradient
+            )
+            .mask {
+                AudioSpectrumView(isPlaying: $musicManager.isPlaying)
+                    .frame(width: 16, height: 12)
+            }
     }
 }
-
-#Preview("Audio Spectrum - Custom Color") {
-    ZStack {
-        Color.black
-            .ignoresSafeArea()
-        
-        AudioSpectrum(color: .systemPurple)
-            .frame(width: 20, height: 14)
-    }
-    .frame(width: 100, height: 50)
-    .onAppear {
-        MusicManager.shared.isPlaying = true
-    }
-}
-

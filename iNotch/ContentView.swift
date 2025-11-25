@@ -147,7 +147,7 @@ struct ContentView: View {
     var closedStateContent: some View {
         if !musicManager.isPlayerIdle || coordinator.sneakPeek.type == .music {
             MusicPlayerClosed()
-                .frame(width: vm.closedNotchSize.width + 100, height: coordinator.sneakPeek.show ? vm.closedNotchSize.height + 30 : vm.closedNotchSize.height)
+                .frame(width: vm.closedNotchSize.width + 90, height: coordinator.sneakPeek.show ? vm.closedNotchSize.height + 30 : vm.closedNotchSize.height)
         } else {
             HStack() {}
                 .frame(width: vm.closedNotchSize.width, height: vm.closedNotchSize.height)
@@ -162,7 +162,7 @@ struct ContentView: View {
             VStack(spacing: 0) {
                 MusicPlayerOpen()
                     .padding(.top, 40)
-                    .frame(width: vm.closedNotchSize.width + 100)
+                    .frame(width: vm.closedNotchSize.width + 90)
             }
         } else {
             VStack(spacing: 0) {

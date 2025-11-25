@@ -31,7 +31,7 @@ let cornerRadiusInsets: (opened: (top: CGFloat, bottom: CGFloat), closed: (top: 
 
 func getClosedNotchSize(screen: String? = nil) -> CGSize{
     var notchHeight: CGFloat = Defaults[.nonNotchHeight]
-    var notchWidth: CGFloat = 985
+    var notchWidth: CGFloat = 185  // ← Changed from 985 to 185
     
     // Определяем экран для работы
     var selectedScreen = NSScreen.main
@@ -47,7 +47,7 @@ func getClosedNotchSize(screen: String? = nil) -> CGSize{
         // auxiliaryTopLeftArea и auxiliaryTopRightArea - области слева и справа от вырезки
         if let topLeftPadding: CGFloat = screen.auxiliaryTopLeftArea?.width,
            let topRightPadding: CGFloat = screen.auxiliaryTopRightArea?.width {
-            notchWidth = screen.frame.width - topLeftPadding - topRightPadding - 16
+            notchWidth = screen.frame.width - topLeftPadding - topRightPadding + 4  // ← Changed from -16 to +4
         }
         
         // ВЫЧИСЛЕНИЕ ВЫСОТЫ (с учётом настроек пользователя)

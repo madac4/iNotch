@@ -24,7 +24,7 @@ struct MusicPlayerOpen: View {
     @State private var dragging: Bool = false
     
     var body: some View {
-        VStack(spacing: 10) {
+        VStack(spacing: 12) {
             HStack(alignment: .top, spacing: 8) {
                 AlbumArtView(size: 46, cornerRadius: 12)
                 
@@ -65,7 +65,8 @@ struct MusicPlayerOpen: View {
                  }
              }
             
-            HStack(spacing: 12) {
+            
+			HStack(spacing: 12) {
                 Button {
                     withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
                         previousPressed = true
@@ -164,7 +165,7 @@ struct MusicPlayerOpen: View {
                 }
             }
         }
-        .onAppear {
+		.onAppear {
             updateSliderValueFromCurrentTime()
         }
         .onChange(of: musicManager.elapsedTime) { _, newValue in
@@ -210,48 +211,59 @@ struct MusicProgressView: View {
     var onValueChange: (Double) -> Void
     
     var currentElapsedTime: Double {
-        if dragging {
+        guard !dragging, timestampDate.timeIntervalSince(lastDragged) > -1 else {
             return sliderValue
         }
         
-        // Вычисляем текущее время на основе timestamp и playback rate
         let timeDifference = isPlaying ? currentDate.timeIntervalSince(timestampDate) : 0
         let elapsed = elapsedTime + (timeDifference * playbackRate)
         return min(elapsed, duration > 0 ? duration : elapsed)
     }
     
     var body: some View {
-        HStack(spacing: 6) {
+        HStack(alignment: .center, spacing: 6) {
             Text(formatTime(currentElapsedTime))
                 .font(.system(size: 11))
                 .foregroundColor(.gray)
                 .monospacedDigit()
             
             GeometryReader { geometry in
-                ProgressView(value: duration > 0 ? currentElapsedTime / duration : 0)
-                    .progressViewStyle(.linear)
-                    .tint(.white)
-                    .frame(height: 6)
-                    .background(Color.white.opacity(0.15))
-                    .clipShape(Capsule())
-                    .gesture(
-                        DragGesture(minimumDistance: 0)
-                            .onChanged { value in
-                                if !dragging {
-                                    dragging = true
-                                }
-                                let progress = value.location.x / geometry.size.width
-                                let newValue = max(0, min(duration, progress * duration))
-                                sliderValue = newValue
+                let width = geometry.size.width
+                let height: CGFloat = dragging ? 8 : 6
+                let rangeSpan = duration
+                let progress = rangeSpan == .zero ? 0 : (currentElapsedTime / rangeSpan)
+                let filledTrackWidth = min(max(progress, 0), 1) * width
+                
+                ZStack(alignment: .leading) {
+                    Rectangle()
+                        .fill(.gray.opacity(0.3))
+                        .frame(height: height)
+                    
+                    Rectangle()
+                        .fill(.white)
+                        .frame(width: filledTrackWidth, height: height)
+                }
+                .cornerRadius(height / 2)
+                .frame(height: 8)
+                .contentShape(Rectangle())
+                .highPriorityGesture(
+                    DragGesture(minimumDistance: 0)
+                        .onChanged { gesture in
+                            withAnimation(.smooth(duration: 0.1)) {
+                                dragging = true
                             }
-                            .onEnded { _ in
-                                dragging = false
-                                lastDragged = Date()
-                                onValueChange(sliderValue)
-                            }
-                    )
+                            let newValue = Double(gesture.location.x / width) * rangeSpan
+                            sliderValue = min(max(newValue, 0), duration)
+                        }
+                        .onEnded { _ in
+                            onValueChange(sliderValue)
+                            dragging = false
+                            lastDragged = Date()
+                        }
+                )
+                .animation(.bouncy.speed(1.4), value: dragging)
             }
-            .frame(height: 6)
+            .frame(height: 8)
             
             Text(formatTime(duration))
                 .font(.system(size: 11))
@@ -260,9 +272,7 @@ struct MusicProgressView: View {
         }
         .onChange(of: currentDate) { _, _ in
             if !dragging {
-                let timeDifference = isPlaying ? currentDate.timeIntervalSince(timestampDate) : 0
-                let calculated = elapsedTime + (timeDifference * playbackRate)
-                sliderValue = min(calculated, duration > 0 ? duration : calculated)
+                sliderValue = currentElapsedTime
             }
         }
     }
