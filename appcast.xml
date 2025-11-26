@@ -1,9 +1,109 @@
 <?xml version='1.0' encoding='utf-8'?>
 <rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
     <channel>
-        <title>iNotch</title>
+		<title>iNotch</title>
         <description>iNotch Update Feed</description>
         <language>en</language>
+
+        <item>
+            <title>iNotch 1.2</title>
+            <pubDate>Wed, 26 Nov 2025 23:17:03 +0000</pubDate>
+            <sparkle:version>3</sparkle:version>
+            <sparkle:shortVersionString>1.2</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <description><![CDATA[
+                <h1>iNotch 1.2</h1>
+                <h2>🎨 Major Update: Complete Settings Panel</h2>
+                <p>This release introduces a comprehensive settings panel that gives you full control over iNotch's appearance and behavior.</p>
+                
+                <h3>✨ New Features</h3>
+                
+                <h4>Settings Panel</h4>
+                <ul>
+                    <li><strong>Complete settings interface</strong> - Beautiful new settings window with organized sidebar navigation</li>
+                    <li><strong>Modern UI design</strong> - Gradient icons for each settings section with smooth animations</li>
+                    <li><strong>Modular architecture</strong> - Reusable components for consistent UI across all settings</li>
+                </ul>
+                
+                <h4>General Settings</h4>
+                <ul>
+                    <li><strong>Dock visibility control</strong> - Show or hide iNotch from macOS Dock</li>
+                    <li><strong>Menubar icon toggle</strong> - Control menubar icon visibility</li>
+                </ul>
+                
+                <h4>Sound/Volume Settings (Major Feature)</h4>
+                <ul>
+                    <li><strong>Enable/Disable volume sneak peek</strong> - Turn volume notifications on or off</li>
+                    <li><strong>Icon customization</strong>
+                        <ul>
+                            <li>Choose between speaker icons or output device icons</li>
+                            <li>Future support for automatic device detection (AirPods, headphones, etc.)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Display options</strong>
+                        <ul>
+                            <li>Show/Hide percentage display</li>
+                            <li>Show/Hide "Volume" label</li>
+                            <li>Show/Hide progress bar</li>
+                        </ul>
+                    </li>
+                    <li><strong>Progress bar customization</strong>
+                        <ul>
+                            <li>Color presets: White, Accent, or Decibel (dynamic green to red based on volume level)</li>
+                            <li>Visual feedback that changes color as volume increases</li>
+                        </ul>
+                    </li>
+                    <li><strong>Animation controls</strong>
+                        <ul>
+                            <li>Adjustable animation speed: Smooth, Fast, or Instant</li>
+                            <li>Customizable HUD duration (0.5-3 seconds)</li>
+                            <li>Smooth fade and slide animations</li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <h4>Volume Sneak Peek Enhancements</h4>
+                <ul>
+                    <li><strong>Full settings integration</strong> - All volume sneak peek features now respect your preferences</li>
+                    <li><strong>Dynamic color progress bar</strong> - Progress bar color changes based on volume (green → yellow → red)</li>
+                    <li><strong>Real-time customization</strong> - Changes apply immediately without restarting the app</li>
+                    <li><strong>Better visual feedback</strong> - Improved animations and transitions</li>
+                </ul>
+                
+                <h3>🎯 Improvements</h3>
+                <ul>
+                    <li><strong>Animated settings transitions</strong> - Smooth show/hide animations when toggling options</li>
+                    <li><strong>Better organization</strong> - Settings grouped logically (General, Notifications, Live Activities)</li>
+                    <li><strong>Consistent design language</strong> - Modern macOS-style interface throughout</li>
+                    <li><strong>Enhanced user experience</strong> - Intuitive controls with visual feedback</li>
+                </ul>
+                
+                <h3>🛠️ Technical Improvements</h3>
+                <ul>
+                    <li><strong>Reusable component system</strong> - Modular UI components for easy future expansion</li>
+                    <li><strong>Settings persistence</strong> - All preferences saved automatically</li>
+                    <li><strong>Real-time updates</strong> - Settings changes apply instantly to the notch UI</li>
+                    <li><strong>Performance optimizations</strong> - Smooth animations even with complex UI</li>
+                </ul>
+                
+                <h3>📝 Notes</h3>
+                <ul>
+                    <li>Settings can be accessed via the menubar icon or by pressing <code>Cmd + ,</code></li>
+                    <li>All volume settings are backward compatible - existing users will see sensible defaults</li>
+                    <li>The Dock visibility setting allows you to choose between dock app and menu bar only mode</li>
+                </ul>
+                
+                <p><strong>What's Next?</strong><br>
+                Battery settings customization, Now Playing settings, and more customization options coming soon!</p>
+                
+                <p>Enjoy the new customization options! 🎉</p>
+            ]]></description>
+            <enclosure 
+                url="https://github.com/madac4/iNotch/releases/download/v1.2/iNotch-v1.2.dmg" 
+                length="2916153" 
+                type="application/octet-stream" 
+                sparkle:edSignature="QApHpKPq/Ku2960vM45IGQKZjS8oy0a5OgHqBsfL5R2NMi+fd8gTU2uYOFe+3rXBZ4SNSHhlOG06kbtNoJxRDw==" />
+        </item>
         
         <item>
             <title>iNotch 1.1.2</title>
@@ -11,53 +111,32 @@
             <sparkle:version>2</sparkle:version>
             <sparkle:shortVersionString>1.1.2</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <description><![CDATA[
-                <h1>iNotch 1.1.2</h1>
-                <h2>🐛 Bug Fixes</h2>
-                <h3>Notch Display</h3>
-                <ul>
-                    <li><strong>Fixed notch sizing on external displays</strong> - The notch now displays correctly on Macs without a physical camera notch or external displays, with proper rounded corners and appropriate sizing</li>
-                    <li><strong>Improved notch width calculation</strong> - Default width adjusted from 985px to 185px for better compatibility</li>
-                </ul>
-                <h3>Audio Spectrum</h3>
-                <ul>
-                    <li><strong>Enhanced audio spectrum visibility</strong> - Improved gradient colors for better visibility on dark album art</li>
-                    <li><strong>Fixed gradient direction</strong> - Audio spectrum now displays with white gradient from bottom to top for better visual appeal</li>
-                    <li><strong>Better color handling</strong> - Audio spectrum now properly uses album art colors with automatic brightness adjustment for dark artwork</li>
-                </ul>
-                <h3>Music Player</h3>
-                <ul>
-                    <li><strong>Fixed progress bar drag delay</strong> - Music progress bar now responds immediately when dragging or clicking, eliminating the previous delay</li>
-                    <li><strong>Improved progress bar responsiveness</strong> - Enhanced real-time updates and smoother interaction</li>
-                </ul>
-                <h2>🎨 UI Improvements</h2>
-                <ul>
-                    <li><strong>Smoother animations</strong> - Refined animation timing for audio spectrum bars</li>
-                    <li><strong>Better visual feedback</strong> - Improved hover and interaction states</li>
-                </ul>
-            ]]></description>
-            <enclosure 
-                url="https://github.com/madac4/iNotch/releases/download/v1.1.2/iNotch-v1.1.2.dmg" 
-                length="2804201" 
-                type="application/octet-stream" 
-                sparkle:edSignature="LZSXmq1VUPg6LlN9ke2FNAg7yWpp6PP89b47b9eCg2Sdpbn49WT4blxiDXMltzbMMivLPYhxSkIa85GPBQO3DQ==" />
-        </item>
-        
-        <item>
-            <title>iNotch 1.1</title>
-            <pubDate>Tue, 25 Nov 2025 12:59:49 +0000</pubDate>
-            <sparkle:version>1</sparkle:version>
-            <sparkle:shortVersionString>1.1</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <description><![CDATA[
-                <h1>iNotch 1.1</h1>
-                <p>Update description here</p>
-            ]]></description>
-            <enclosure 
-                url="https://github.com/madac4/iNotch/releases/download/v1.1/iNotch-v1.1.dmg" 
-                length="2801527" 
-                type="application/octet-stream" 
-                sparkle:edSignature="77TlpBR/TgUhOlyndWkPT85DHMGlCDuHb5Ygh5mPrIHQ/gUvQ+g9pFaATeK7qjenpm8MymZE88BQ+AeVTpIaBw==" />
+            <description>
+                &lt;h1&gt;iNotch 1.1.2&lt;/h1&gt;
+                &lt;h2&gt;🐛 Bug Fixes&lt;/h2&gt;
+                &lt;h3&gt;Notch Display&lt;/h3&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;&lt;strong&gt;Fixed notch sizing on external displays&lt;/strong&gt; - The notch now displays correctly on Macs without a physical camera notch or external displays, with proper rounded corners and appropriate sizing&lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Improved notch width calculation&lt;/strong&gt; - Default width adjusted from 985px to 185px for better compatibility&lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;h3&gt;Audio Spectrum&lt;/h3&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;&lt;strong&gt;Enhanced audio spectrum visibility&lt;/strong&gt; - Improved gradient colors for better visibility on dark album art&lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Fixed gradient direction&lt;/strong&gt; - Audio spectrum now displays with white gradient from bottom to top for better visual appeal&lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Better color handling&lt;/strong&gt; - Audio spectrum now properly uses album art colors with automatic brightness adjustment for dark artwork&lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;h3&gt;Music Player&lt;/h3&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;&lt;strong&gt;Fixed progress bar drag delay&lt;/strong&gt; - Music progress bar now responds immediately when dragging or clicking, eliminating the previous delay&lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Improved progress bar responsiveness&lt;/strong&gt; - Enhanced real-time updates and smoother interaction&lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;h2&gt;🎨 UI Improvements&lt;/h2&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;&lt;strong&gt;Smoother animations&lt;/strong&gt; - Refined animation timing for audio spectrum bars&lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Better visual feedback&lt;/strong&gt; - Improved hover and interaction states&lt;/li&gt;
+                &lt;/ul&gt;
+            </description>
+            <enclosure url="https://github.com/madac4/iNotch/releases/download/v1.1.2/iNotch-v1.1.2.dmg" length="2804201" type="application/octet-stream" sparkle:edSignature="LZSXmq1VUPg6LlN9ke2FNAg7yWpp6PP89b47b9eCg2Sdpbn49WT4blxiDXMltzbMMivLPYhxSkIa85GPBQO3DQ==" />
         </item>
         
         <item>
@@ -66,22 +145,18 @@
             <sparkle:version>1</sparkle:version>
             <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <description><![CDATA[
-                <h1>iNotch 1.0</h1>
-                <p>Initial release of iNotch</p>
-                <h2>Features:</h2>
-                <ul>
-                    <li>Music player integration</li>
-                    <li>Volume and battery sneak peeks</li>
-                    <li>Beautiful notch UI</li>
-                    <li>Auto-update support</li>
-                </ul>
-            ]]></description>
-            <enclosure 
-                url="https://github.com/madac4/iNotch/releases/download/v1.1/iNotch-v1.1.dmg" 
-                length="10000000" 
-                type="application/octet-stream" 
-                sparkle:edSignature="YOUR_ED_SIGNATURE_HERE" />
+            <description>
+                &lt;h1&gt;iNotch 1.0&lt;/h1&gt;
+                &lt;p&gt;Initial release of iNotch&lt;/p&gt;
+                &lt;h2&gt;Features:&lt;/h2&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;Music player integration&lt;/li&gt;
+                    &lt;li&gt;Volume and battery sneak peeks&lt;/li&gt;
+                    &lt;li&gt;Beautiful notch UI&lt;/li&gt;
+                    &lt;li&gt;Auto-update support&lt;/li&gt;
+                &lt;/ul&gt;
+            </description>
+            <enclosure url="https://github.com/madac4/iNotch/releases/download/v1.1/iNotch-v1.1.dmg" length="10000000" type="application/octet-stream" sparkle:edSignature="YOUR_ED_SIGNATURE_HERE" />
         </item>
     </channel>
 </rss>

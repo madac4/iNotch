@@ -99,6 +99,12 @@ struct ContentView: View {
         VStack(alignment: .leading, spacing: 0) {
             // ═══ SNEAK PEEK (только volume и battery, музыка - внутри MusicPlayerClosed) ═══
             if coordinator.sneakPeek.show && vm.notchState == .closed {
+                let volumeWidth: CGFloat = Defaults[.showVolumeProgress]
+                    ? vm.closedNotchSize.width * 2
+                    : Defaults[.showVolumeLabel]
+                    ? vm.closedNotchSize.width * 1.8
+                    : vm.closedNotchSize.width * 1.5
+                
                 switch coordinator.sneakPeek.type {
                     case .volume:
                         VolumeSneakPeekView(state: coordinator.sneakPeek)
@@ -107,7 +113,7 @@ struct ContentView: View {
                                 removal: .scale(scale: 0.95).combined(with: .opacity)
                             ))
                             .zIndex(100)
-                            .frame(width: vm.closedNotchSize.width * 2, height: vm.closedNotchSize.height)
+                            .frame(width: volumeWidth, height: vm.closedNotchSize.height)
                     
                     case .battery:
                         BatterySneakPeekView(state: coordinator.sneakPeek)
@@ -293,3 +299,4 @@ struct ContentView: View {
         
     }
 }
+

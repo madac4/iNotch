@@ -140,15 +140,29 @@ class NotchCoordinator: ObservableObject {
     }
     
     private func handleVolumeChanged(volume: Float) {
+		guard Defaults[.enableVolumeSneakPeek] else { return }
+
         let volumeManager = VolumeManager.shared
+		let duration = Defaults[.volumeHUDDuration]
+
+		let icon: String
+
+		switch Defaults[.volumeIconMode] {
+			case .speakers:
+				icon = volumeManager.speakerIcon(for: volume)
+			case .outputDevice:
+				icon = volumeManager.getDeviceIcon() ?? volumeManager.speakerIcon(for: volume)
+		}
+			
         
         showSneakPeek(
             type: .volume,
             value: Int(volume * 100),
-            icon: volumeManager.speakerIcon(for: volume),
+            icon: icon,
             title: volumeManager.isMuted || (volume * 100) == 0 ? "Silent" : "",
             iconColor: (volume * 100) == 0 || volumeManager.isMuted ? .red : .white,
-            valueColor: (volume * 100) == 0 || volumeManager.isMuted ? .red : .white
+            valueColor: (volume * 100) == 0 || volumeManager.isMuted ? .red : .white,
+			duration: duration
         )
     }
     
@@ -213,9 +227,17 @@ class NotchCoordinator: ObservableObject {
         duration: TimeInterval = 3.0
     ) {
         sneakPeekDuration = duration
+
+		let animationSpeed: TimeInterval
+
+		if type == .volume {
+			animationSpeed = Defaults[.volumeAnimationSpeed].animationDuration
+		} else {
+			animationSpeed = 0.3
+		}	
         
         DispatchQueue.main.async {
-            withAnimation(.smooth(duration: 0.4)) {
+            withAnimation(.smooth(duration: animationSpeed)) {
                 self.sneakPeek = SneakPeekState(
                     show: true,
                     type: type,

@@ -23,12 +23,14 @@ struct iNotchApp: App {
     init() {
         updaterController = SPUStandardUpdaterController(
             startingUpdater: true, updaterDelegate: nil, userDriverDelegate: nil)
+        
+        SettingsWindowController.shared.setUpdaterController(updaterController)
     }
     
     var body: some Scene {
         MenuBarExtra("iNotch", systemImage: "sparkle", isInserted: $showMenuBarIcon){
             Button("Settings"){
-                print("Settings tapped")
+                SettingsWindowController.shared.showWindow()
             }
             .keyboardShortcut(KeyEquivalent(","), modifiers: .command)
             
@@ -66,6 +68,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let vm: NotchViewModel = .init()
     
     func applicationDidFinishLaunching(_ notification: Notification) {
+		let showInDock = Defaults[.showInDock]
+
+		NSApp.setActivationPolicy(showInDock ? .regular : .accessory)
+
         let viewModel = self.vm
         
         let window = createNotchWindow(for: NSScreen.main ?? NSScreen.screens.first!, with: viewModel)
@@ -74,9 +80,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         adjustWindowPosition()
         
         _ = VolumeManager.shared
-        print("Volume Manager initialized")
         
-        // MARK: - Check for new version on first launch (NEW)
         if isNewVersion() {
             print("New version detected: \(Bundle.main.releaseVersionNumberPretty)")
         }

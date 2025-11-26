@@ -33,4 +33,15 @@ extension Defaults.Keys {
     /// Минимальная длительность hover для открытия (секунды)
     static let minimumHoverDuration = Key<TimeInterval>("minimumHoverDuration", default: 0.5)
 
+	static let showInDock = Key<Bool>("showInDock", default: false)
+
+    // MARK: - Volume/Sound Settings
+	static let volumeAnimationSpeed = Key<VolumeAnimationSpeed>("volumeAnimationSpeed", default: .fast)
+	static let volumeProgressColor = Key<VolumeProgressColor>("volumeProgressColor", default: .white)
+	static let volumeIconMode = Key<VolumeIconMode>("volumeIconMode", default: .speakers)
+	static let enableVolumeSneakPeek = Key<Bool>("enableVolumeSneakPeek", default: true)
+	static let volumeHUDDuration = Key<TimeInterval>("volumeHUDDuration", default: 1.5)
+	static let showVolumePercentage = Key<Bool>("showVolumePercentage", default: true)
+	static let showVolumeProgress = Key<Bool>("showVolumeProgress", default: false)
+	static let showVolumeLabel = Key<Bool>("showVolumeLabel", default: false)
 }

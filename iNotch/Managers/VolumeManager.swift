@@ -412,6 +412,22 @@ class VolumeManager: ObservableObject {
             return "speaker.wave.3.fill"
         }
     }
+
+	func getDeviceIcon() -> String? {
+        let deviceName = getDeviceName(deviceID)?.lowercased() ?? ""
+
+		if deviceName.contains("headphone") || deviceName.contains("earpod") {
+			return "headphones"
+		} else if deviceName.contains("airpods") || deviceName.contains("airpod") {
+			return "airpods"
+		} else if deviceName.contains("earpods") {
+			return "earpods"
+		} else if deviceName.contains("earbuds") {
+			return "earbuds"
+		}
+
+		return nil
+	}
     
     deinit {
         print("🧹 VolumeManager: Cleaning up...")

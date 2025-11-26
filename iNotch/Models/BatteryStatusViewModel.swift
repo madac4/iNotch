@@ -120,12 +120,6 @@ class BatteryStatusViewModel: ObservableObject {
                 notifyImportantChangeStatus()
             }
             
-        case .timeToFullChargeChanged(let time):
-            // Изменение времени до полной зарядки
-            withAnimation {
-                self.timeToFullCharge = time
-            }
-            
         case .maxCapacityChanged(let capacity):
             // Изменение максимальной ёмкости
             withAnimation {

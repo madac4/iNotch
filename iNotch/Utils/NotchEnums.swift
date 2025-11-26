@@ -8,6 +8,7 @@
 
 import Foundation
 import Defaults
+import SwiftUI
 
 // Используется для отслеживания текущего состояния UI
 public enum NotchState {
@@ -33,11 +34,9 @@ public enum BatteryEvent {
     case powerSourceChanged(isPluggedIn: Bool)
     case batteryLevelChanged(level: Float)
     case isChargingChanged(isCharging: Bool)
-    case timeToFullChargeChanged(time: Int)
     case maxCapacityChanged(capacity: Float)
     case error(description: String)
 }
-
 
 enum BatteryError: Error {
     case powerSourceUnavailable
@@ -58,4 +57,51 @@ enum SneakContentType {
     case volume
     case backlight
     case music
+}
+
+
+// MARK: - Volume Settings
+public enum VolumeIconMode: String, CaseIterable, Identifiable, Defaults.Serializable {
+	case speakers = "Speakers"
+	case outputDevice = "Output Device"
+
+    public var id: String { self.rawValue }
+}
+
+public enum VolumeProgressColor: String, CaseIterable, Identifiable, Defaults.Serializable {
+	case white = "White"
+	case accent = "Accent"
+	case decibel = "Decibel"
+
+	public var id: String { self.rawValue }
+
+	var displayColor: Color {
+		switch self {
+		case .white:
+			return .white
+		case .accent:
+			return .accentColor
+		case .decibel:
+			return .green
+		}
+	}
+}
+
+public enum VolumeAnimationSpeed: String, CaseIterable, Identifiable, Defaults.Serializable {
+	case smooth = "Smooth"
+	case fast = "Fast"
+	case instant = "Instant"
+
+	public var id: String { self.rawValue }
+
+	var animationDuration: TimeInterval {
+		switch self {
+		case .smooth:
+			return 0.3
+		case .fast:
+			return 0.15
+		case .instant:
+			return 0.05
+		}
+	}
 }
