@@ -115,10 +115,13 @@ class NotchCoordinator: ObservableObject {
     
     /// Обрабатывает изменение источника питания
     private func handlePowerSourceChanged(isCharging: Bool) {
+		guard Defaults[.enableBatterySneakPeek] else { return }
+
         let battery = BatteryStatusViewModel.shared
+		let duration = Defaults[.batteryHUDDuration]
         
         var percentage: Int = 100
-        
+
         switch Int(battery.levelBattery) {
             case 0...7: percentage = 0
             case 8...35: percentage = 25
@@ -126,17 +129,22 @@ class NotchCoordinator: ObservableObject {
             case 65...95: percentage = 75
             default: percentage = 100
         }
-        
-        showSneakPeek(
-            type: .battery,
-            value: Int(battery.levelBattery),
-            icon: "battery.\(percentage)percent",
-            title: isCharging ? "Charging" : "Unplugged",
-            iconColor: isCharging ? .green : .white,
-            valueColor: isCharging ? .green : .white,
-            duration: 4.0
-        )
 
+		if !isCharging && Defaults[.playSoundOnUnplugged] {
+			playUnpluggedSound()
+		}
+        
+		if isCharging || (Defaults[.showUnpluggedNotification] && !isCharging) {
+			showSneakPeek(
+				type: .battery,
+				value: Int(battery.levelBattery),
+				icon: "battery.\(percentage)percent",
+				title: isCharging ? "Charging" : "Unplugged",
+				iconColor: isCharging ? .green : .white,
+				valueColor: isCharging ? .green : .white,
+				duration: duration
+			)
+		}
     }
     
     private func handleVolumeChanged(volume: Float) {
@@ -168,10 +176,17 @@ class NotchCoordinator: ObservableObject {
     
     /// Обрабатывает изменение уровня заряда
     private func handleBatteryLevelChanged(level: Float) {
+		guard Defaults[.enableBatterySneakPeek] else { return }
+
         let battery = BatteryStatusViewModel.shared
+		let threshold = Defaults[.lowBatteryThreshold]
+		let duration = Defaults[.batteryHUDDuration]
         
-        // Показываем только для низкого заряда (<10%) когда не заряжается
-        if level <= 10 && !battery.isCharging {
+        if level <= Float(threshold) && !battery.isCharging && Defaults[.warnOnLowBattery] {
+			if Defaults[.playSoundOnLowBattery] {
+				playLowBatterySound()
+			}
+
             showSneakPeek(
                 type: .battery,
                 value: Int(level),
@@ -179,11 +194,10 @@ class NotchCoordinator: ObservableObject {
                 title: "Battery Low",
                 iconColor: .red,
                 valueColor: .red,
-                duration: 4.0
+                duration: duration
             )
         }
         
-        // Показываем для полной зарядки
         if Int(level) == 100 && battery.isCharging {
             showSneakPeek(
                 type: .battery,
@@ -192,8 +206,24 @@ class NotchCoordinator: ObservableObject {
                 title: "Battery Full",
                 iconColor: .green,
                 valueColor: .green,
-                duration: 4.0
+                duration: duration
             )
+        }
+    }
+
+	private func playLowBatterySound() {
+        DispatchQueue.main.async {
+            if let sound = NSSound(named: "Bottle") {
+                sound.play()
+            }
+        }
+    }
+
+	private func playUnpluggedSound() {
+        DispatchQueue.main.async {
+            if let sound = NSSound(named: "Funk") {
+                sound.play()
+            }
         }
     }
     

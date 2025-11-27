@@ -154,7 +154,6 @@ class BatteryStatusViewModel: ObservableObject {
             try? await Task.sleep(for: .seconds(delay))
             // TODO: Вызвать coordinator для показа уведомления
             // coordinator.toggleExpandingView(status: true, type: .battery)
-            print("💡 Показываем уведомление о батарее")
         }
     }
     

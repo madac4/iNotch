@@ -22,26 +22,22 @@ struct VolumeSneakPeekView: View {
 	private let volumeManager = VolumeManager.shared
     
     var body: some View {
-        VStack(spacing: 0) {
-            HStack(spacing: 8) {
-                iconView
-                
-                if showVolumeLabel {
-                    labelView
-                }
-                
-                Spacer()
-                
-                if showVolumeProgress {
-                    progressView
-                }
-                if showVolumePercentage {
-                    percentageView
-                }
-            }
-            
-           
-        }
+		HStack(spacing: 4) {
+			iconView
+			
+			if showVolumeLabel {
+				labelView
+			}
+			
+			Spacer()
+			
+			if showVolumeProgress {
+				progressView
+			}
+			if showVolumePercentage {
+				percentageView
+			}
+		}
     }
 
 	@ViewBuilder

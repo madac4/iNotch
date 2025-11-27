@@ -32,7 +32,7 @@ struct SettingsIconButton: View {
         if let iconColor = iconColor {
             return iconColor
         }
-        return isSelected ? .white : .secondary
+        return isSelected ? .primary : .secondary
     }
     
     var body: some View {
@@ -57,7 +57,7 @@ struct SettingsIconButton: View {
             
             Text(label)
                 .font(.callout)
-                .foregroundStyle(isSelected ? .white : .secondary)
+                .foregroundStyle(isSelected ? .primary : .secondary)
                 .fontWeight(.medium)
         }
     }

@@ -14,16 +14,18 @@ struct BatterySneakPeekView: View {
     
     var body: some View {
         HStack(spacing: 4) {
-            Text(state.title)
-                .font(.system(size: 12, weight: .semibold))
-                .foregroundColor(.white)
-                .lineLimit(1)
+			Text(state.title)
+				.font(.system(size: 12, weight: .semibold))
+				.foregroundColor(.white)
+				.lineLimit(1)
             
             Spacer()
         
-            Text("\(state.value)%")
-                .font(.system(size: 12, weight: .medium))
-                .foregroundColor(state.valueColor)
+			if Defaults[.showBatteryPercentage] {
+				Text("\(state.value)%")
+					.font(.system(size: 12, weight: .medium))
+					.foregroundColor(state.valueColor)
+			}
             
             Image(systemName: state.icon)
                 .font(.system(size: 16, weight: .semibold))

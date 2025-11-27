@@ -31,7 +31,6 @@ struct SoundSettingsView: View {
                             icon: "speaker.wave.2.fill",
                             label: "Show speaker",
                             isSelected: selectedIconMode == .speakers,
-                            iconColor: .white
                         ) {
                             selectedIconMode = .speakers
                             Defaults[.volumeIconMode] = .speakers
@@ -41,7 +40,6 @@ struct SoundSettingsView: View {
                             icon: "beats.headphones",
                             label: "Show device",
                             isSelected: selectedIconMode == .outputDevice,
-                            iconColor: .white
                         ) {
                             selectedIconMode = .outputDevice
                             Defaults[.volumeIconMode] = .outputDevice
@@ -80,14 +78,14 @@ struct SoundSettingsView: View {
                             
                             HStack(spacing: 8) {
                                 SettingsColorPresetButton(
-                                    color: .white,
+                                    color: .white.opacity(0.7),
                                     label: "White",
                                     isSelected: selectedProgressColor == .white
                                 ) {
                                     selectedProgressColor = .white
                                     Defaults[.volumeProgressColor] = .white
                                 }
-                                
+
                                 SettingsColorPresetButton(
                                     color: .accentColor,
                                     label: "Accent",

@@ -30,7 +30,7 @@ struct SettingsSectionHeader: View {
             Text(title)
                 .font(.body)
                 .fontWeight(.medium)
-                .foregroundStyle(.white)
+                .foregroundStyle(.primary)
             
             Spacer()
             

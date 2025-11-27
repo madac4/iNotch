@@ -56,7 +56,7 @@ struct SettingsColorPresetButton: View {
             
             Text(label)
                 .font(.callout)
-                .foregroundStyle(isSelected ? .white : .secondary)
+                .foregroundStyle(isSelected ? .primary : .secondary)
                 .fontWeight(.medium)
         }
     }

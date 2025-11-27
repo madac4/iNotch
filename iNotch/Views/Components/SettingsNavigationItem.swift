@@ -43,7 +43,7 @@ struct SettingsNavigationItem<Destination>: View where Destination: Hashable {
                 Text(title)
                     .font(.callout)
                     .fontWeight(.medium)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.primary)
             }
         }
     }

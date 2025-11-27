@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
     <channel>
-		<title>iNotch</title>
+		<item><title>iNotch 1.2.1</title><pubDate>Thu, 27 Nov 2025 09:29:04 +0000</pubDate><sparkle:version>4</sparkle:version><sparkle:shortVersionString>1.2.1</sparkle:shortVersionString><sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion><description>&lt;h1&gt;iNotch 1.2.1&lt;/h1&gt;&lt;p&gt;Update description here&lt;/p&gt;</description><enclosure url="https://github.com/madac4/iNotch/releases/download/v1.2.1/iNotch-v1.2.1.dmg" length="2940241" type="application/octet-stream" sparkle:edSignature="FKPNz8sUtqS0JcV45LsUzJscfqf5pCmogCsei6GnX3bgAJGgxPK8GtqGpmQ7/KWN6sVSwzSJjUlHY147XWwhAg==" /></item><title>iNotch</title>
         <description>iNotch Update Feed</description>
         <language>en</language>
 
@@ -11,98 +11,94 @@
             <sparkle:version>3</sparkle:version>
             <sparkle:shortVersionString>1.2</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <description><![CDATA[
-                <h1>iNotch 1.2</h1>
-                <h2>🎨 Major Update: Complete Settings Panel</h2>
-                <p>This release introduces a comprehensive settings panel that gives you full control over iNotch's appearance and behavior.</p>
+            <description>
+                &lt;h1&gt;iNotch 1.2&lt;/h1&gt;
+                &lt;h2&gt;🎨 Major Update: Complete Settings Panel&lt;/h2&gt;
+                &lt;p&gt;This release introduces a comprehensive settings panel that gives you full control over iNotch's appearance and behavior.&lt;/p&gt;
                 
-                <h3>✨ New Features</h3>
+                &lt;h3&gt;✨ New Features&lt;/h3&gt;
                 
-                <h4>Settings Panel</h4>
-                <ul>
-                    <li><strong>Complete settings interface</strong> - Beautiful new settings window with organized sidebar navigation</li>
-                    <li><strong>Modern UI design</strong> - Gradient icons for each settings section with smooth animations</li>
-                    <li><strong>Modular architecture</strong> - Reusable components for consistent UI across all settings</li>
-                </ul>
+                &lt;h4&gt;Settings Panel&lt;/h4&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;&lt;strong&gt;Complete settings interface&lt;/strong&gt; - Beautiful new settings window with organized sidebar navigation&lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Modern UI design&lt;/strong&gt; - Gradient icons for each settings section with smooth animations&lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Modular architecture&lt;/strong&gt; - Reusable components for consistent UI across all settings&lt;/li&gt;
+                &lt;/ul&gt;
                 
-                <h4>General Settings</h4>
-                <ul>
-                    <li><strong>Dock visibility control</strong> - Show or hide iNotch from macOS Dock</li>
-                    <li><strong>Menubar icon toggle</strong> - Control menubar icon visibility</li>
-                </ul>
+                &lt;h4&gt;General Settings&lt;/h4&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;&lt;strong&gt;Dock visibility control&lt;/strong&gt; - Show or hide iNotch from macOS Dock&lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Menubar icon toggle&lt;/strong&gt; - Control menubar icon visibility&lt;/li&gt;
+                &lt;/ul&gt;
                 
-                <h4>Sound/Volume Settings (Major Feature)</h4>
-                <ul>
-                    <li><strong>Enable/Disable volume sneak peek</strong> - Turn volume notifications on or off</li>
-                    <li><strong>Icon customization</strong>
-                        <ul>
-                            <li>Choose between speaker icons or output device icons</li>
-                            <li>Future support for automatic device detection (AirPods, headphones, etc.)</li>
-                        </ul>
-                    </li>
-                    <li><strong>Display options</strong>
-                        <ul>
-                            <li>Show/Hide percentage display</li>
-                            <li>Show/Hide "Volume" label</li>
-                            <li>Show/Hide progress bar</li>
-                        </ul>
-                    </li>
-                    <li><strong>Progress bar customization</strong>
-                        <ul>
-                            <li>Color presets: White, Accent, or Decibel (dynamic green to red based on volume level)</li>
-                            <li>Visual feedback that changes color as volume increases</li>
-                        </ul>
-                    </li>
-                    <li><strong>Animation controls</strong>
-                        <ul>
-                            <li>Adjustable animation speed: Smooth, Fast, or Instant</li>
-                            <li>Customizable HUD duration (0.5-3 seconds)</li>
-                            <li>Smooth fade and slide animations</li>
-                        </ul>
-                    </li>
-                </ul>
+                &lt;h4&gt;Sound/Volume Settings (Major Feature)&lt;/h4&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;&lt;strong&gt;Enable/Disable volume sneak peek&lt;/strong&gt; - Turn volume notifications on or off&lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Icon customization&lt;/strong&gt;
+                        &lt;ul&gt;
+                            &lt;li&gt;Choose between speaker icons or output device icons&lt;/li&gt;
+                            &lt;li&gt;Future support for automatic device detection (AirPods, headphones, etc.)&lt;/li&gt;
+                        &lt;/ul&gt;
+                    &lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Display options&lt;/strong&gt;
+                        &lt;ul&gt;
+                            &lt;li&gt;Show/Hide percentage display&lt;/li&gt;
+                            &lt;li&gt;Show/Hide "Volume" label&lt;/li&gt;
+                            &lt;li&gt;Show/Hide progress bar&lt;/li&gt;
+                        &lt;/ul&gt;
+                    &lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Progress bar customization&lt;/strong&gt;
+                        &lt;ul&gt;
+                            &lt;li&gt;Color presets: White, Accent, or Decibel (dynamic green to red based on volume level)&lt;/li&gt;
+                            &lt;li&gt;Visual feedback that changes color as volume increases&lt;/li&gt;
+                        &lt;/ul&gt;
+                    &lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Animation controls&lt;/strong&gt;
+                        &lt;ul&gt;
+                            &lt;li&gt;Adjustable animation speed: Smooth, Fast, or Instant&lt;/li&gt;
+                            &lt;li&gt;Customizable HUD duration (0.5-3 seconds)&lt;/li&gt;
+                            &lt;li&gt;Smooth fade and slide animations&lt;/li&gt;
+                        &lt;/ul&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
                 
-                <h4>Volume Sneak Peek Enhancements</h4>
-                <ul>
-                    <li><strong>Full settings integration</strong> - All volume sneak peek features now respect your preferences</li>
-                    <li><strong>Dynamic color progress bar</strong> - Progress bar color changes based on volume (green → yellow → red)</li>
-                    <li><strong>Real-time customization</strong> - Changes apply immediately without restarting the app</li>
-                    <li><strong>Better visual feedback</strong> - Improved animations and transitions</li>
-                </ul>
+                &lt;h4&gt;Volume Sneak Peek Enhancements&lt;/h4&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;&lt;strong&gt;Full settings integration&lt;/strong&gt; - All volume sneak peek features now respect your preferences&lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Dynamic color progress bar&lt;/strong&gt; - Progress bar color changes based on volume (green → yellow → red)&lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Real-time customization&lt;/strong&gt; - Changes apply immediately without restarting the app&lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Better visual feedback&lt;/strong&gt; - Improved animations and transitions&lt;/li&gt;
+                &lt;/ul&gt;
                 
-                <h3>🎯 Improvements</h3>
-                <ul>
-                    <li><strong>Animated settings transitions</strong> - Smooth show/hide animations when toggling options</li>
-                    <li><strong>Better organization</strong> - Settings grouped logically (General, Notifications, Live Activities)</li>
-                    <li><strong>Consistent design language</strong> - Modern macOS-style interface throughout</li>
-                    <li><strong>Enhanced user experience</strong> - Intuitive controls with visual feedback</li>
-                </ul>
+                &lt;h3&gt;🎯 Improvements&lt;/h3&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;&lt;strong&gt;Animated settings transitions&lt;/strong&gt; - Smooth show/hide animations when toggling options&lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Better organization&lt;/strong&gt; - Settings grouped logically (General, Notifications, Live Activities)&lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Consistent design language&lt;/strong&gt; - Modern macOS-style interface throughout&lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Enhanced user experience&lt;/strong&gt; - Intuitive controls with visual feedback&lt;/li&gt;
+                &lt;/ul&gt;
                 
-                <h3>🛠️ Technical Improvements</h3>
-                <ul>
-                    <li><strong>Reusable component system</strong> - Modular UI components for easy future expansion</li>
-                    <li><strong>Settings persistence</strong> - All preferences saved automatically</li>
-                    <li><strong>Real-time updates</strong> - Settings changes apply instantly to the notch UI</li>
-                    <li><strong>Performance optimizations</strong> - Smooth animations even with complex UI</li>
-                </ul>
+                &lt;h3&gt;🛠️ Technical Improvements&lt;/h3&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;&lt;strong&gt;Reusable component system&lt;/strong&gt; - Modular UI components for easy future expansion&lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Settings persistence&lt;/strong&gt; - All preferences saved automatically&lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Real-time updates&lt;/strong&gt; - Settings changes apply instantly to the notch UI&lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Performance optimizations&lt;/strong&gt; - Smooth animations even with complex UI&lt;/li&gt;
+                &lt;/ul&gt;
                 
-                <h3>📝 Notes</h3>
-                <ul>
-                    <li>Settings can be accessed via the menubar icon or by pressing <code>Cmd + ,</code></li>
-                    <li>All volume settings are backward compatible - existing users will see sensible defaults</li>
-                    <li>The Dock visibility setting allows you to choose between dock app and menu bar only mode</li>
-                </ul>
+                &lt;h3&gt;📝 Notes&lt;/h3&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;Settings can be accessed via the menubar icon or by pressing &lt;code&gt;Cmd + ,&lt;/code&gt;&lt;/li&gt;
+                    &lt;li&gt;All volume settings are backward compatible - existing users will see sensible defaults&lt;/li&gt;
+                    &lt;li&gt;The Dock visibility setting allows you to choose between dock app and menu bar only mode&lt;/li&gt;
+                &lt;/ul&gt;
                 
-                <p><strong>What's Next?</strong><br>
-                Battery settings customization, Now Playing settings, and more customization options coming soon!</p>
+                &lt;p&gt;&lt;strong&gt;What's Next?&lt;/strong&gt;&lt;br&gt;
+                Battery settings customization, Now Playing settings, and more customization options coming soon!&lt;/p&gt;
                 
-                <p>Enjoy the new customization options! 🎉</p>
-            ]]></description>
-            <enclosure 
-                url="https://github.com/madac4/iNotch/releases/download/v1.2/iNotch-v1.2.dmg" 
-                length="2916153" 
-                type="application/octet-stream" 
-                sparkle:edSignature="QApHpKPq/Ku2960vM45IGQKZjS8oy0a5OgHqBsfL5R2NMi+fd8gTU2uYOFe+3rXBZ4SNSHhlOG06kbtNoJxRDw==" />
+                &lt;p&gt;Enjoy the new customization options! 🎉&lt;/p&gt;
+            </description>
+            <enclosure url="https://github.com/madac4/iNotch/releases/download/v1.2/iNotch-v1.2.dmg" length="2916153" type="application/octet-stream" sparkle:edSignature="QApHpKPq/Ku2960vM45IGQKZjS8oy0a5OgHqBsfL5R2NMi+fd8gTU2uYOFe+3rXBZ4SNSHhlOG06kbtNoJxRDw==" />
         </item>
         
         <item>

@@ -122,7 +122,7 @@ struct ContentView: View {
                                 removal: .scale(scale: 0.95).combined(with: .opacity)
                             ))
                             .zIndex(100)
-                            .frame(width: vm.closedNotchSize.width * 2, height: vm.closedNotchSize.height)
+                            .frame(width: vm.closedNotchSize.width * 1.8, height: vm.closedNotchSize.height)
                     
                     case .music:
                         EmptyView()

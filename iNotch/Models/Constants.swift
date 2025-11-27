@@ -44,4 +44,14 @@ extension Defaults.Keys {
 	static let showVolumePercentage = Key<Bool>("showVolumePercentage", default: true)
 	static let showVolumeProgress = Key<Bool>("showVolumeProgress", default: false)
 	static let showVolumeLabel = Key<Bool>("showVolumeLabel", default: false)
+
+	// MARK: - Battery Settings
+	static let showUnpluggedNotification = Key<Bool>("showUnpluggedNotification", default: true)
+	static let enableBatterySneakPeek = Key<Bool>("enableBatterySneakPeek", default: true)
+	static let playSoundOnLowBattery = Key<Bool>("playSoundOnLowBattery", default: true)
+	static let showBatteryPercentage = Key<Bool>("showBatteryPercentage", default: true)
+	static let playSoundOnUnplugged = Key<Bool>("playSoundOnUnplugged", default: false)
+	static let batteryHUDDuration = Key<TimeInterval>("batteryHUDDuration", default: 5)
+	static let lowBatteryThreshold = Key<Int>("lowBatteryThreshold", default: 10)
+	static let warnOnLowBattery = Key<Bool>("warnOnLowBattery", default: true)
 }
