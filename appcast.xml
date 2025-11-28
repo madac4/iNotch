@@ -24,7 +24,7 @@
                     &lt;li&gt;&lt;strong&gt;Modern UI design&lt;/strong&gt; - Gradient icons for each settings section with smooth animations&lt;/li&gt;
                     &lt;li&gt;&lt;strong&gt;Modular architecture&lt;/strong&gt; - Reusable components for consistent UI across all settings&lt;/li&gt;
                 &lt;/ul&gt;
-                
+				
                 &lt;h4&gt;General Settings&lt;/h4&gt;
                 &lt;ul&gt;
                     &lt;li&gt;&lt;strong&gt;Dock visibility control&lt;/strong&gt; - Show or hide iNotch from macOS Dock&lt;/li&gt;
