@@ -37,6 +37,7 @@
                 &lt;h3&gt;🎨 UI/UX Improvements&lt;/h3&gt;
                 &lt;ul&gt;
                     &lt;li&gt;Consistent design language matching Sound settings panel&lt;/li&gt;
+					&lt;li&gt;Settings panel light and dark mode support&lt;/li&gt;
                     &lt;li&gt;Animated section folding when enabling/disabling battery sneak peek&lt;/li&gt;
                     &lt;li&gt;Smooth transitions for conditional options (low battery threshold appears only when warnings are enabled)&lt;/li&gt;
                 &lt;/ul&gt;
