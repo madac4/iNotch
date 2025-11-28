@@ -54,4 +54,12 @@ extension Defaults.Keys {
 	static let batteryHUDDuration = Key<TimeInterval>("batteryHUDDuration", default: 5)
 	static let lowBatteryThreshold = Key<Int>("lowBatteryThreshold", default: 10)
 	static let warnOnLowBattery = Key<Bool>("warnOnLowBattery", default: true)
+
+	// MARK: - Device Connection Settings
+	static let enableDeviceConnectionSneakPeek = Key<Bool>("enableDeviceConnectionSneakPeek", default: true)
+	static let deviceConnectionHUDDuration = Key<TimeInterval>("deviceConnectionHUDDuration", default: 3.0)
+	static let playSoundOnLowDeviceBattery = Key<Bool>("playSoundOnLowDeviceBattery", default: true)
+	static let warnOnLowDeviceBattery = Key<Bool>("warnOnLowDeviceBattery", default: true)
+	static let deviceIconMode = Key<DeviceIconMode>("deviceIconMode", default: .symbol)
+	static let showConnectionState = Key<Bool>("showConnectionState", default: false)
 }

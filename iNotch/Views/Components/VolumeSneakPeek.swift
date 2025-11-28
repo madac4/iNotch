@@ -23,7 +23,9 @@ struct VolumeSneakPeekView: View {
     
     var body: some View {
 		HStack(spacing: 4) {
-			iconView
+            Image(systemName: state.icon)
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundColor(state.iconColor)
 			
 			if showVolumeLabel {
 				labelView
@@ -39,29 +41,7 @@ struct VolumeSneakPeekView: View {
 			}
 		}
     }
-
-	@ViewBuilder
-	private var iconView: some View {
-		Group {
-			switch volumeIconMode {
-			case .speakers:
-				Image(systemName: state.icon)
-					.font(.system(size: 14, weight: .semibold))
-					.foregroundColor(state.iconColor)
-			case .outputDevice:
-				outputDeviceIcon
-			}
-		}
-		.animation(.smooth(duration: volumeAnimationSpeed.animationDuration), value: state.value)
-	}
-
-	@ViewBuilder
-	private var outputDeviceIcon: some View {
-		Image(systemName: volumeManager.getDeviceIcon() ?? "airpodspro")
-			.font(.system(size: 14, weight: .semibold))
-			.foregroundColor(state.iconColor)
-	}
-
+    
 	@ViewBuilder
 	private var labelView: some View {
 		Text("Volume")

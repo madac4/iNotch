@@ -33,6 +33,16 @@
                             Color(red: 1, green: 0.71, blue: 0.53)
                         ]
                     )
+                    
+                    SettingsNavigationItem.withLinearGradient(
+                        value: "Connectivity",
+                        icon: "airpodsmax",
+                        title: "Connectivity",
+                        gradientColors: [
+                            Color(red: 0.97, green: 0.55, blue: 0.4),
+                            Color(red: 1, green: 0.71, blue: 0.53)
+                        ]
+                    )
 					
                     SettingsNavigationItem.withLinearGradient(
                         value: "Sound",
@@ -70,6 +80,8 @@
  					SoundSettingsView()
  				case "Now Playing":
  					NowPlayingSettingsView()
+                case "Connectivity":
+                    ConnectivitySettingsView()
  				default:
  					GeneralSettingsView()
  				}

@@ -31,38 +31,160 @@ struct SneakPeekState {
 
 /// Координатор для управления Sneak Peek уведомлениями
 class NotchCoordinator: ObservableObject {
-    // Singleton
     static let shared = NotchCoordinator()
     
     
-    /// Текущее состояние Sneak Peek
     @Published var sneakPeek: SneakPeekState = .init() {
         didSet {
             if sneakPeek.show {
-                // Запускаем таймер автоскрытия
                 scheduleSneakPeekHide(after: sneakPeekDuration)
             } else {
-                // Отменяем таймер
                 sneakPeekTask?.cancel()
             }
         }
     }
     
     
-    /// Продолжительность показа Sneak Peek (в секундах)
     private var sneakPeekDuration: TimeInterval = 3.0
-    /// Задача автоскрытия
     private var sneakPeekTask: Task<Void, Never>?
     private var cancellables = Set<AnyCancellable>()
     
     
     private init() {
-        // Подписываемся на события батареи
         setupBatteryObserver()
         setupMusicObserver()
         setupVolumeObserver()
+        setupDeviceConnectionObserver()
     }
     
+private func setupDeviceConnectionObserver() {
+	let deviceManager = ConnectivityManager.shared
+	
+	deviceManager.connectionEvent
+		.receive(on: DispatchQueue.main)
+		.sink { [weak self] event in
+			print("📨 NotchCoordinator: Received device connection event")
+			
+			guard Defaults[.enableDeviceConnectionSneakPeek] else {
+				print("   ⚠️ Device connection notifications are disabled")
+				print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
+				return
+			}
+			
+			switch event {
+			case .connected(let deviceInfo):
+				print("   └─ Event type: .connected")
+				print("   └─ Device: \(deviceInfo.name)")
+				print("   └─ ID: \(deviceInfo.deviceID)")
+				print("   └─ Battery: \(deviceInfo.batteryLevel?.description ?? "N/A")%")
+				self?.handleDeviceConnected(deviceInfo)
+			case .disconnected(let deviceInfo):
+				print("   └─ Event type: .disconnected")
+				print("   └─ Device: \(deviceInfo.name)")
+				print("   └─ ID: \(deviceInfo.deviceID)")
+				// Handle disconnection if needed
+				break
+			case .moved(let deviceInfo, let toDevice):
+				print("   └─ Event type: .moved")
+				print("   └─ Device: \(deviceInfo.name)")
+				print("   └─ ID: \(deviceInfo.deviceID)")
+				print("   └─ Moved to: \(toDevice ?? "Unknown")")
+				self?.handleDeviceMoved(deviceInfo, toDevice: toDevice)
+			case .batteryUpdated(let deviceInfo):
+				print("   └─ Event type: .batteryUpdated")
+				print("   └─ Device: \(deviceInfo.name)")
+				print("   └─ Battery: \(deviceInfo.batteryLevel?.description ?? "N/A")%")
+				// Optionally show battery update
+				break
+			}
+			print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
+		}
+		.store(in: &cancellables)
+	print("✅ NotchCoordinator: Device connection observer setup complete")
+}
+
+private func handleDeviceConnected(_ deviceInfo: DeviceInfo) {
+	print("🎯 NotchCoordinator: Handling device connected...")
+	print("   └─ Device: \(deviceInfo.name)")
+	print("   └─ Battery: \(deviceInfo.batteryLevel?.description ?? "N/A")%")
+    
+    print(deviceInfo)
+	
+	let duration = Defaults[.deviceConnectionHUDDuration]
+	
+	let icon = getDeviceIcon(for: deviceInfo.name)
+	print("   └─ Icon: \(icon)")
+	
+	print("   └─ Calling showSneakPeek...")
+    
+	showSneakPeek(
+		type: .deviceConnection,
+		value: deviceInfo.batteryLevel ?? 0,
+		icon: icon,
+        title: deviceInfo.isBluetooth ? "Connected" : "Disconnected",
+		duration: duration,
+//			deviceName: deviceInfo.name,
+//			deviceBattery: deviceInfo.batteryLevel,
+//			canReconnect: false
+	)
+	print("✅ NotchCoordinator: Device connected handler complete")
+}
+
+private func handleDeviceMoved(_ deviceInfo: DeviceInfo, toDevice: String?) {
+	print("🎯 NotchCoordinator: Handling device moved...")
+	print("   └─ Device: \(deviceInfo.name)")
+	print("   └─ Battery: \(deviceInfo.batteryLevel?.description ?? "N/A")%")
+	print("   └─ Moved to: \(toDevice ?? "Unknown")")
+	
+	let duration = Defaults[.deviceConnectionHUDDuration]
+	print("   └─ Duration: \(duration)s")
+	
+	let icon = getDeviceIcon(for: deviceInfo.name)
+	print("   └─ Icon: \(icon)")
+	
+	let title = "Moved to \(toDevice ?? "Other Device")"
+	print("   └─ Title: \(title)")
+	
+	print("   └─ Calling showSneakPeek...")
+	showSneakPeek(
+		type: .deviceConnection,
+		value: deviceInfo.batteryLevel ?? 0,
+		icon: icon,
+		title: title,
+		titleColor: .gray,
+		iconColor: .white,
+		valueColor: .gray,
+		duration: duration,
+//			deviceName: deviceInfo.name,
+//			deviceBattery: deviceInfo.batteryLevel,
+//			canReconnect: true,
+//			movedToDevice: toDevice
+	)
+	print("✅ NotchCoordinator: Device moved handler complete")
+}
+
+    private func getDeviceIcon(for deviceName: String) -> String {
+        let lowercased = deviceName.lowercased()
+            
+        let icon: String
+        if lowercased.contains("airpods pro") {
+            icon = "airpodspro"
+        } else if lowercased.contains("airpods max") {
+            icon = "airpodsmax"
+        } else if lowercased.contains("airpods") {
+            icon = "airpods"
+        } else if lowercased.contains("headphone") {
+            icon = "headphones"
+        } else if lowercased.contains("earbud") {
+            icon = "earbuds"
+        } else if lowercased.contains("macbook") {
+            icon = "macbook.gen2"
+        } else {
+            icon = "headphones"
+        }
+        
+        return icon
+    }
     
     /// Настраивает observer для событий батареи
     private func setupBatteryObserver() {
@@ -151,6 +273,7 @@ class NotchCoordinator: ObservableObject {
 		guard Defaults[.enableVolumeSneakPeek] else { return }
 
         let volumeManager = VolumeManager.shared
+        let deviceManager = ConnectivityManager.shared
 		let duration = Defaults[.volumeHUDDuration]
 
 		let icon: String
@@ -159,8 +282,15 @@ class NotchCoordinator: ObservableObject {
 			case .speakers:
 				icon = volumeManager.speakerIcon(for: volume)
 			case .outputDevice:
-				icon = volumeManager.getDeviceIcon() ?? volumeManager.speakerIcon(for: volume)
-		}
+                if let deviceName = deviceManager.currentDevice?.name,
+                   deviceName.lowercased().contains("macbook") {
+                    icon = volumeManager.speakerIcon(for: volume)
+                } else if let deviceName = deviceManager.currentDevice?.name {
+                    icon = getDeviceIcon(for: deviceName)
+                } else {
+                    icon = volumeManager.speakerIcon(for: volume)
+                }
+        }
 			
         
         showSneakPeek(

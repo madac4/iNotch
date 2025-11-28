@@ -103,7 +103,7 @@ struct ContentView: View {
                     ? vm.closedNotchSize.width * 2
                     : Defaults[.showVolumeLabel]
                     ? vm.closedNotchSize.width * 1.8
-                    : vm.closedNotchSize.width * 1.5
+                    : vm.closedNotchSize.width * 1.3
                 
                 switch coordinator.sneakPeek.type {
                     case .volume:
@@ -123,7 +123,14 @@ struct ContentView: View {
                             ))
                             .zIndex(100)
                             .frame(width: vm.closedNotchSize.width * 1.8, height: vm.closedNotchSize.height)
-                    
+                    case .deviceConnection:
+                       DeviceConnectionSneakPeek(state: coordinator.sneakPeek)
+                           .transition(.asymmetric(
+                               insertion: .scale(scale: 0.9).combined(with: .opacity),
+                               removal: .scale(scale: 0.95).combined(with: .opacity)
+                           ))
+                           .zIndex(100)
+                           .frame(width: Defaults[.showConnectionState] ? vm.closedNotchSize.width * 2 : vm.closedNotchSize.width * 1.3, height: vm.closedNotchSize.height)
                     case .music:
                         EmptyView()
                     
