@@ -1,10 +1,3 @@
-//
-//  BatterySettingsView.swift
-//  iNotch
-//
-//  Created by Petru Orbu on 26.11.2025.
-//
-
 import SwiftUI
 import Defaults
 

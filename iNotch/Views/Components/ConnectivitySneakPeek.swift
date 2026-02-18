@@ -1,10 +1,3 @@
-//
-//  DeviceConnectionSneakPeek.swift
-//  iNotch
-//
-//  Created by Petru Orbu on 27.11.2025.
-//
-
 import SwiftUI
 import Defaults
 

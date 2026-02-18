@@ -1,13 +1,5 @@
-//
-//  iNotchApp.swiftp
-//  iNotch
-//
-//  Created by Petru Orbu on 18.11.2025.
-//
-
 import SwiftUI
 import Defaults
-// MARK: - Sparkle Integration (Auto-updates)
 import Sparkle
 
 @main
