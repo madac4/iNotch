@@ -1,9 +1,70 @@
 <?xml version='1.0' encoding='utf-8'?>
 <rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
     <channel>
-		<item><title>iNotch 1.2.1</title><pubDate>Thu, 27 Nov 2025 09:29:04 +0000</pubDate><sparkle:version>4</sparkle:version><sparkle:shortVersionString>1.2.1</sparkle:shortVersionString><sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion><description>&lt;h1&gt;iNotch 1.2.1&lt;/h1&gt;&lt;p&gt;Update description here&lt;/p&gt;</description><enclosure url="https://github.com/madac4/iNotch/releases/download/v1.2.1/iNotch-v1.2.1.dmg" length="2940241" type="application/octet-stream" sparkle:edSignature="FKPNz8sUtqS0JcV45LsUzJscfqf5pCmogCsei6GnX3bgAJGgxPK8GtqGpmQ7/KWN6sVSwzSJjUlHY147XWwhAg==" /></item><title>iNotch</title>
-        <description>iNotch Update Feed</description>
-        <language>en</language>
+		<item>
+            <title>iNotch 1.2.1</title>
+            <pubDate>Thu, 27 Nov 2025 09:29:04 +0000</pubDate>
+            <sparkle:version>4</sparkle:version>
+            <sparkle:shortVersionString>1.2.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <description>
+                &lt;h1&gt;iNotch 1.2.1&lt;/h1&gt;
+                &lt;h2&gt;🔋 Battery Settings Panel&lt;/h2&gt;
+                &lt;p&gt;This update introduces comprehensive battery settings, giving you full control over battery notifications and sneak peek behavior.&lt;/p&gt;
+                
+                &lt;h3&gt;✨ New Features&lt;/h3&gt;
+                
+                &lt;h4&gt;Battery Settings Panel&lt;/h4&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;&lt;strong&gt;Complete battery customization&lt;/strong&gt; - New dedicated Battery settings section with organized controls&lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Enable/Disable sneak peek&lt;/strong&gt; - Toggle battery sneak peek notifications on or off&lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Customizable duration&lt;/strong&gt; - Adjust battery HUD display duration from 0 to 10 seconds (0.5s increments)&lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Percentage display&lt;/strong&gt; - Show or hide battery percentage in sneak peek notifications&lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Low battery warnings&lt;/strong&gt; - Enable intelligent low battery warnings with customizable threshold&lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Low battery threshold&lt;/strong&gt; - Set warning threshold from 5% to 30% (5% increments)&lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Sound alerts&lt;/strong&gt; - Configure audio alerts for low battery and unplug events&lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Unplugged notifications&lt;/strong&gt; - Toggle notifications when power adapter is disconnected&lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Smooth animations&lt;/strong&gt; - Beautiful animated transitions when toggling settings options&lt;/li&gt;
+                &lt;/ul&gt;
+                
+                &lt;h4&gt;Settings Integration&lt;/h4&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;&lt;strong&gt;Seamless integration&lt;/strong&gt; - Battery settings seamlessly integrated with existing settings panel&lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Persistent preferences&lt;/strong&gt; - All battery preferences are saved and restored automatically&lt;/li&gt;
+                    &lt;li&gt;&lt;strong&gt;Real-time updates&lt;/strong&gt; - Settings apply immediately without requiring app restart&lt;/li&gt;
+                &lt;/ul&gt;
+                
+                &lt;h3&gt;🎨 UI/UX Improvements&lt;/h3&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;Consistent design language matching Sound settings panel&lt;/li&gt;
+					&lt;li&gt;Settings panel light and dark mode support&lt;/li&gt;
+                    &lt;li&gt;Animated section folding when enabling/disabling battery sneak peek&lt;/li&gt;
+                    &lt;li&gt;Smooth transitions for conditional options (low battery threshold appears only when warnings are enabled)&lt;/li&gt;
+                &lt;/ul&gt;
+                
+                &lt;h3&gt;🔧 Technical Improvements&lt;/h3&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;Battery settings fully wired to NotchCoordinator&lt;/li&gt;
+                    &lt;li&gt;Settings respect all battery-related preferences&lt;/li&gt;
+                    &lt;li&gt;Improved battery monitoring integration&lt;/li&gt;
+                &lt;/ul&gt;
+                
+                &lt;h3&gt;📋 Battery Settings Options&lt;/h3&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;✅ Enable/Disable battery sneak peek&lt;/li&gt;
+                    &lt;li&gt;⏱️ Duration control (0-10 seconds)&lt;/li&gt;
+                    &lt;li&gt;🔔 Show unplugged notification&lt;/li&gt;
+                    &lt;li&gt;⚠️ Warn on low battery&lt;/li&gt;
+                    &lt;li&gt;📊 Low battery threshold (5-30%)&lt;/li&gt;
+                    &lt;li&gt;🔊 Play sound on low battery&lt;/li&gt;
+                    &lt;li&gt;🔊 Play sound on unplugged&lt;/li&gt;
+                    &lt;li&gt;📈 Show battery percentage&lt;/li&gt;
+                &lt;/ul&gt;
+                
+                &lt;p&gt;Enjoy the new battery customization options! 🎉&lt;/p&gt;
+            </description>
+            <enclosure url="https://github.com/madac4/iNotch/releases/download/v1.2.1/iNotch-v1.2.1.dmg" length="2940241" type="application/octet-stream" sparkle:edSignature="FKPNz8sUtqS0JcV45LsUzJscfqf5pCmogCsei6GnX3bgAJGgxPK8GtqGpmQ7/KWN6sVSwzSJjUlHY147XWwhAg==" />
+        </item>
 
         <item>
             <title>iNotch 1.2</title>
@@ -24,7 +85,7 @@
                     &lt;li&gt;&lt;strong&gt;Modern UI design&lt;/strong&gt; - Gradient icons for each settings section with smooth animations&lt;/li&gt;
                     &lt;li&gt;&lt;strong&gt;Modular architecture&lt;/strong&gt; - Reusable components for consistent UI across all settings&lt;/li&gt;
                 &lt;/ul&gt;
-                
+				
                 &lt;h4&gt;General Settings&lt;/h4&gt;
                 &lt;ul&gt;
                     &lt;li&gt;&lt;strong&gt;Dock visibility control&lt;/strong&gt; - Show or hide iNotch from macOS Dock&lt;/li&gt;
