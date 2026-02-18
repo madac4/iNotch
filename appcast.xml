@@ -2,6 +2,45 @@
 <rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
     <channel>
 		<item>
+            <title>iNotch 1.3.0</title>
+            <pubDate>Wed, 18 Feb 2026 12:00:00 +0000</pubDate>
+            <sparkle:version>5</sparkle:version>
+            <sparkle:shortVersionString>1.3.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
+            <description><![CDATA[
+                <h1>iNotch 1.3.0</h1>
+                <h2>Connectivity Release: major update to Bluetooth + sneak peek behavior</h2>
+                <p>This release adds a full connectivity experience with new settings, improved Bluetooth detection, and refined notch notifications.</p>
+
+                <h3>Highlights</h3>
+                <ul>
+                    <li><strong>New Connectivity sneak peek flow</strong> with dedicated HUD behavior.</li>
+                    <li><strong>Bluetooth battery tracking reworked</strong> using CoreBluetooth-based reads, async refresh, and cache.</li>
+                    <li><strong>Connection events improved</strong> for connect/disconnect and live battery updates.</li>
+                    <li><strong>New connectivity settings panel</strong> with icon mode, duration, low-battery threshold, and disconnect notification options.</li>
+                    <li><strong>Low-battery handling improved</strong> with warning title/color styling and optional sound trigger.</li>
+                </ul>
+
+                <h3>Settings and UX</h3>
+                <ul>
+                    <li>Updated General settings wiring for menubar visibility, hover-open behavior, and gesture controls.</li>
+                    <li>Updated Sound/Connectivity presentation and visual polish in settings navigation.</li>
+                    <li>Connectivity sneak peek component now replaces the previous device-connection view implementation.</li>
+                </ul>
+
+                <h3>Technical changes</h3>
+                <ul>
+                    <li>Connectivity manager architecture refactored for clearer event delivery and state updates.</li>
+                    <li>Notch coordinator updated to react consistently to connectivity and battery state changes.</li>
+                    <li>Project/release metadata updated for current release pipeline targeting macOS 26.0.</li>
+                </ul>
+
+                <p><strong>Note:</strong> this release requires macOS 26.0 or newer.</p>
+            ]]></description>
+            <enclosure url="https://github.com/madac4/iNotch/releases/download/v1.3.0/iNotch-v1.3.0.dmg" length="3509901" type="application/octet-stream" sparkle:edSignature="qdstmNmAbsrR3a6XmcpyGB4/TqACOj4WSol4ksM908iw9VW6tNPfUWc2J+gkCKZoxGPBALM3sk5BICY28VFnBA==" />
+        </item>
+
+		<item>
             <title>iNotch 1.2.1</title>
             <pubDate>Thu, 27 Nov 2025 09:29:04 +0000</pubDate>
             <sparkle:version>4</sparkle:version>

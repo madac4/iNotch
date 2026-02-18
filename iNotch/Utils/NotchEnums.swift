@@ -57,6 +57,7 @@ enum SneakContentType {
     case volume
     case backlight
     case music
+	case deviceConnection
 }
 
 
@@ -87,7 +88,14 @@ public enum VolumeProgressColor: String, CaseIterable, Identifiable, Defaults.Se
 	}
 }
 
-public enum VolumeAnimationSpeed: String, CaseIterable, Identifiable, Defaults.Serializable {
+public enum DeviceIconMode: String, CaseIterable, Identifiable, Defaults.Serializable {
+	case model3D = "3D Model"
+	case symbol = "Symbol"
+
+	public var id: String { self.rawValue }
+}
+
+public enum AnimationSpeed: String, CaseIterable, Identifiable, Defaults.Serializable {
 	case smooth = "Smooth"
 	case fast = "Fast"
 	case instant = "Instant"

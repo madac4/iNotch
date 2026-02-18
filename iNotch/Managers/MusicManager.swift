@@ -17,9 +17,9 @@ let defaultImage: NSImage = .init(
 class MusicManager: ObservableObject {
     // MARK: - Properties
     
-    static let shared = MusicManager()
-    private var cancellables = Set<AnyCancellable>()
-    private var controllerCancellables = Set<AnyCancellable>()
+    static let shared: MusicManager = MusicManager()
+    private var cancellables: Set<AnyCancellable> = Set<AnyCancellable>()
+    private var controllerCancellables: Set<AnyCancellable> = Set<AnyCancellable>()
     
     // Active controller
     private var activeController: (any MediaControllerProtocol)?
@@ -28,7 +28,7 @@ class MusicManager: ObservableObject {
     @Published var songTitle: String = "No Track Playing"
     @Published var artistName: String = "Unknown Artist"
     @Published var albumArt: NSImage = defaultImage
-    @Published var isPlaying = false
+    @Published var isPlaying: Bool = false
     @Published var album: String = "Unknown Album"
     @Published var isPlayerIdle: Bool = true
     @Published var avgColor: NSColor = .white
@@ -65,7 +65,7 @@ class MusicManager: ObservableObject {
     // MARK: - Setup Methods
     
     private func setupNowPlayingController() {
-        guard let controller = NowPlayingController() else {
+        guard let controller: NowPlayingController = NowPlayingController() else {
             print("❌ Failed to create NowPlayingController")
             return
         }
@@ -110,16 +110,18 @@ class MusicManager: ObservableObject {
        }
        
        // Обновляем остальные поля
-       if state.title != self.songTitle {
-           self.songTitle = state.title
-       }
-       
-       if state.artist != self.artistName {
-           self.artistName = state.artist
-       }
-       
-       if state.album != self.album {
-           self.album = state.album
+       withAnimation(.smooth) {
+           if state.title != self.songTitle {
+               self.songTitle = state.title
+           }
+           
+           if state.artist != self.artistName {
+               self.artistName = state.artist
+           }
+           
+           if state.album != self.album {
+               self.album = state.album
+           }
        }
        
        // ВАЖНО: Всегда обновляем elapsedTime и timestampDate на каждом обновлении
@@ -154,6 +156,7 @@ class MusicManager: ObservableObject {
        
        if trackChanged && !state.title.isEmpty && state.title != "No Track Playing" {
            self.trackChanged.toggle()
+           self.triggerFlipAnimation()
        }
     }
     
@@ -249,6 +252,13 @@ class MusicManager: ObservableObject {
     func seek(to position: TimeInterval) {
         Task {
             await activeController?.seek(to: position)
+        }
+    }
+    
+    func openMusicApp() {
+        guard let bundleId = bundleIdentifier else { return }
+        if let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleId) {
+            NSWorkspace.shared.openApplication(at: url, configuration: .init(), completionHandler: nil)
         }
     }
 }

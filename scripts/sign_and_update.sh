@@ -81,7 +81,7 @@ TEMP_ITEM=$(cat <<EOF
             <pubDate>$RELEASE_DATE</pubDate>
             <sparkle:version>$BUILD_NUMBER</sparkle:version>
             <sparkle:shortVersionString>$VERSION</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
             <description><![CDATA[
                 <h1>iNotch $VERSION</h1>
                 <p>Update description here</p>

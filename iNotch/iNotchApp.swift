@@ -1,19 +1,11 @@
-//
-//  iNotchApp.swift
-//  iNotch
-//
-//  Created by Petru Orbu on 18.11.2025.
-//
-
 import SwiftUI
 import Defaults
-// MARK: - Sparkle Integration (Auto-updates)
 import Sparkle
 
 @main
 struct iNotchApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @Default(.menubarIcon) var showMenuBarIcon
+    @Default(.showMenuBarIcon) var showMenuBarIcon
     @Environment(\.openWindow) var openWindow
     
     // MARK: - Sparkle Updater Controller (NEW)

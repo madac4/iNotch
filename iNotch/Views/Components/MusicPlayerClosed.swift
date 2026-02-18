@@ -12,6 +12,10 @@ struct MusicPlayerClosed: View {
     @ObservedObject var coordinator = NotchCoordinator.shared
     @EnvironmentObject var vm: NotchViewModel
     
+    // State для hover эффектов
+    @State private var artworkHovered = false
+    @State private var textHovered = false
+    
     private var isSneakPeekMode: Bool {
         coordinator.sneakPeek.show && coordinator.sneakPeek.type == .music
     }
@@ -20,6 +24,20 @@ struct MusicPlayerClosed: View {
         VStack(spacing: 8) {
             HStack() {
                 AlbumArtView()
+                    .scaleEffect(artworkHovered ? 1.1 : 1.0)
+                    .opacity(artworkHovered ? 0.9 : 1.0)
+                    .animation(.spring(response: 0.3, dampingFraction: 0.7), value: artworkHovered)
+                    .onHover { hovering in
+                        artworkHovered = hovering
+                        if hovering {
+                            NSCursor.pointingHand.push()
+                        } else {
+                            NSCursor.pointingHand.pop()
+                        }
+                    }
+                    .onTapGesture {
+                        musicManager.openMusicApp()
+                    }
                 
                 Spacer()
                 
@@ -38,6 +56,27 @@ struct MusicPlayerClosed: View {
                     font: .system(size: 12, weight: .medium),
                     icon: "music.note",
                 )
+                .id(musicManager.songTitle)
+                .transition(.asymmetric(
+                    insertion: .opacity.combined(with: .offset(x: 20)),
+                    removal: .opacity.combined(with: .offset(x: -20))
+                ))
+                .animation(.spring(response: 0.5, dampingFraction: 0.8), value: musicManager.songTitle)
+                .contentShape(Rectangle())
+                .scaleEffect(textHovered ? 1.02 : 1.0)
+                .opacity(textHovered ? 0.8 : 1.0)
+                .animation(.spring(response: 0.3, dampingFraction: 0.7), value: textHovered)
+                .onHover { hovering in
+                    textHovered = hovering
+                    if hovering {
+                        NSCursor.pointingHand.push()
+                    } else {
+                        NSCursor.pointingHand.pop()
+                    }
+                }
+                .onTapGesture {
+                    musicManager.openMusicApp()
+                }
                 .transition(.asymmetric(
                     insertion: .move(edge: .top).combined(with: .opacity),
                     removal: .move(edge: .bottom).combined(with: .opacity)

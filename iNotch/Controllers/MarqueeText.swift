@@ -146,12 +146,8 @@ struct MarqueeText: View {
                         .background(backgroundColor)
                         .modifier(MeasureSizeModifier())
                         .onPreferenceChange(SizePreferenceKey.self) { size in
-                            print("📏 MarqueeText SIZE MEASURED: raw size=\(size)")
-                            
                             self.textSize = CGSize(width: size.width / 2, height: NSFont.preferredFont(forTextStyle: nsFont).pointSize)
-                            
-                            print("📐 MarqueeText CALCULATED: textSize.width=\(self.textSize.width), frameWidth=\(frameWidth), iconWidth=\(icon != nil ? iconSize + iconSpacing : 0), availableWidth=\(frameWidth - (icon != nil ? iconSize + iconSpacing : 0)), needsScrolling=\(needsScrolling)")
-                            
+                                                    
                             self.animate = false
                             self.offset = 0
                             
@@ -163,9 +159,6 @@ struct MarqueeText: View {
                                 if shouldScroll {
                                     self.animate = true
                                     self.offset = -(textSize.width + 10)
-                                    print("✅ MarqueeText ANIMATION STARTED: animate=\(self.animate), offset=\(self.offset), duration=\(Double(textSize.width / 30))")
-                                } else {
-                                    print("❌ MarqueeText NO ANIMATION: Text fits in frame")
                                 }
                             }
                         }
@@ -175,8 +168,5 @@ struct MarqueeText: View {
             }
         }
         .frame(height: textSize.height * 1.3)
-        .onChange(of: currentText) { oldValue, newValue in
-            print("🔄 MarqueeText TEXT CHANGED: '\(oldValue)' -> '\(newValue)'")
-        }
     }
 }

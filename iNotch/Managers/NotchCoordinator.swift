@@ -31,38 +31,140 @@ struct SneakPeekState {
 
 /// Координатор для управления Sneak Peek уведомлениями
 class NotchCoordinator: ObservableObject {
-    // Singleton
     static let shared = NotchCoordinator()
     
     
-    /// Текущее состояние Sneak Peek
     @Published var sneakPeek: SneakPeekState = .init() {
         didSet {
             if sneakPeek.show {
-                // Запускаем таймер автоскрытия
                 scheduleSneakPeekHide(after: sneakPeekDuration)
             } else {
-                // Отменяем таймер
                 sneakPeekTask?.cancel()
             }
         }
     }
     
-    
-    /// Продолжительность показа Sneak Peek (в секундах)
     private var sneakPeekDuration: TimeInterval = 3.0
-    /// Задача автоскрытия
     private var sneakPeekTask: Task<Void, Never>?
     private var cancellables = Set<AnyCancellable>()
     
     
     private init() {
-        // Подписываемся на события батареи
         setupBatteryObserver()
         setupMusicObserver()
         setupVolumeObserver()
+        setupDeviceConnectionObserver()
     }
     
+    private func setupDeviceConnectionObserver() {
+        let deviceManager = ConnectivityManager.shared
+        
+        deviceManager.connectionEvent
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] event in
+                guard Defaults[.enableConnectivitySneakPeek] else {return}
+
+                switch event {
+                case .connected(let deviceInfo):
+                    self?.handleDeviceConnection(deviceInfo)
+                case .disconnected(let deviceInfo):
+                    if Defaults[.showDisconnectNotification] {
+                        self?.handleDeviceConnection(deviceInfo)
+                    }
+                    break
+                case .batteryUpdated(let deviceInfo):
+                    self?.handleDeviceBatteryUpdated(deviceInfo)
+                }
+            }
+            .store(in: &cancellables)
+    }
+
+    private func handleDeviceConnection(_ deviceInfo: DeviceInfo) {
+        let duration = Defaults[.connectivityHUDDuration]
+        let icon = getDeviceIcon(for: deviceInfo.name)
+
+		let macBattery = BatteryStatusViewModel.shared.levelBattery
+		let deviceBattery = deviceInfo.batteryLevel
+	
+        if deviceInfo.isBluetooth && deviceBattery == nil {return}
+	
+        if Defaults[.warnOnLowDeviceBattery], let deviceBattery = deviceBattery, deviceBattery <= Defaults[.lowDeviceBatteryThreshold] {
+            handleDeviceLowBattery(deviceInfo)
+        } else {
+            showSneakPeek(
+                type: .deviceConnection,
+                value: deviceInfo.isBluetooth ? deviceBattery ?? 0 : Int(macBattery),
+                icon: icon,
+                title: "",
+                duration: duration
+            )
+        }
+    }
+
+    private func handleDeviceLowBattery(_ deviceInfo: DeviceInfo) {
+        if Defaults[.playSoundOnLowDeviceBattery] {
+            playLowBatterySound()
+        }
+
+        let duration = Defaults[.connectivityHUDDuration]
+        let icon = getDeviceIcon(for: deviceInfo.name, isBluetooth: deviceInfo.isBluetooth)
+            
+        showSneakPeek(
+            type: .deviceConnection,
+            value: deviceInfo.batteryLevel!,
+            icon: icon,
+            title: "Low Battery",
+            titleColor: .red,
+            iconColor: .red,
+            valueColor: .red,
+            duration: duration
+        )
+    }
+
+	private func handleDeviceBatteryUpdated(_ deviceInfo: DeviceInfo) {
+		guard let batteryLevel = deviceInfo.batteryLevel else { return }
+		
+		let duration = Defaults[.connectivityHUDDuration]
+		let icon = getDeviceIcon(for: deviceInfo.name, isBluetooth: deviceInfo.isBluetooth)
+		
+		// Check if battery is low
+		if Defaults[.warnOnLowDeviceBattery], batteryLevel <= Defaults[.lowDeviceBatteryThreshold] {
+			handleDeviceLowBattery(deviceInfo)
+		} else {
+			// Update sneak peek with new battery level (normal connection state)
+			showSneakPeek(
+				type: .deviceConnection,
+				value: batteryLevel,
+				icon: icon,
+				title: "",
+				duration: duration
+			)
+		}
+    }
+
+
+    private func getDeviceIcon(for deviceName: String, isBluetooth: Bool = false) -> String {
+        let lowercased = deviceName.lowercased()
+        let icon: String
+            
+        if lowercased.contains("airpods pro") {
+            icon = "airpodspro"
+        } else if lowercased.contains("airpods max") {
+            icon = "airpodsmax"
+        } else if lowercased.contains("airpods") {
+            icon = "airpods"
+        } else if lowercased.contains("headphone") {
+            icon = "headphones"
+        } else if lowercased.contains("earbud") {
+            icon = "earbuds"
+        } else if lowercased.contains("macbook") {
+            icon = "macbook"
+        } else {
+            icon = "headphones"
+        }
+        
+        return icon
+    }
     
     /// Настраивает observer для событий батареи
     private func setupBatteryObserver() {
@@ -151,6 +253,7 @@ class NotchCoordinator: ObservableObject {
 		guard Defaults[.enableVolumeSneakPeek] else { return }
 
         let volumeManager = VolumeManager.shared
+        let deviceManager = ConnectivityManager.shared
 		let duration = Defaults[.volumeHUDDuration]
 
 		let icon: String
@@ -159,8 +262,15 @@ class NotchCoordinator: ObservableObject {
 			case .speakers:
 				icon = volumeManager.speakerIcon(for: volume)
 			case .outputDevice:
-				icon = volumeManager.getDeviceIcon() ?? volumeManager.speakerIcon(for: volume)
-		}
+                if let deviceName = deviceManager.currentDevice?.name,
+                   deviceName.lowercased().contains("macbook") {
+                    icon = volumeManager.speakerIcon(for: volume)
+                } else if let deviceName = deviceManager.currentDevice?.name {
+                    icon = getDeviceIcon(for: deviceName)
+                } else {
+                    icon = volumeManager.speakerIcon(for: volume)
+                }
+        }
 			
         
         showSneakPeek(
@@ -261,7 +371,7 @@ class NotchCoordinator: ObservableObject {
 		let animationSpeed: TimeInterval
 
 		if type == .volume {
-			animationSpeed = Defaults[.volumeAnimationSpeed].animationDuration
+			animationSpeed = Defaults[.animationSpeed].animationDuration
 		} else {
 			animationSpeed = 0.3
 		}	

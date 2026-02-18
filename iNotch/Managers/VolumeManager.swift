@@ -22,18 +22,15 @@ class VolumeManager: ObservableObject {
     
     let volumeChanged = PassthroughSubject<Float, Never>()
     
-    // ← ДОБАВЛЕНО: Сохраняем указатели для cleanup
     private var listenerClientData: UnsafeMutablePointer<VolumeManager>?
     private var volumeListenerCallback: AudioObjectPropertyListenerProc?
     
     private var deviceChangeCallback: AudioObjectPropertyListenerProc?
     
     private init() {
-        print("🎵 VolumeManager: Initializing...")
         setupDeviceChangeMonitoring();
         setupVolumeMonitoring()
         updateCurrentVolume()
-        print("🎵 VolumeManager: Initial volume: \(Int(currentVolume * 100))%")
     }
     
     private func setupVolumeMonitoring() {
@@ -44,8 +41,6 @@ class VolumeManager: ObservableObject {
             return
         }
         
-        print("🎵 VolumeManager: Device ID: \(deviceID)")
-        
         // Создаём callback
         let callback: AudioObjectPropertyListenerProc = { (
             inObjectID: AudioObjectID,
@@ -53,8 +48,6 @@ class VolumeManager: ObservableObject {
             inAddresses: UnsafePointer<AudioObjectPropertyAddress>,
             inClientData: UnsafeMutableRawPointer?
         ) -> OSStatus in
-            
-            print("🔔 VolumeManager: Callback triggered!")
             
             guard let managerPointer = inClientData?.assumingMemoryBound(to: VolumeManager.self) else {
                 print("❌ VolumeManager: Failed to get manager pointer")
@@ -96,8 +89,6 @@ class VolumeManager: ObservableObject {
         
         if volumeStatus != noErr {
             print("❌ VolumeManager: Failed to add volume listener, status: \(volumeStatus)")
-        } else {
-            print("✅ VolumeManager: Volume monitoring started (device: \(deviceID))")
         }
         
         // Регистрируем listener для Mute
@@ -116,8 +107,6 @@ class VolumeManager: ObservableObject {
         
         if muteStatus != noErr {
             print("⚠️ VolumeManager: Failed to add mute listener, status: \(muteStatus)")
-        } else {
-            print("✅ VolumeManager: Mute monitoring started")
         }
     }
     
@@ -129,8 +118,6 @@ class VolumeManager: ObservableObject {
                 inClientData: UnsafeMutableRawPointer?
             ) -> OSStatus in
               
-            print("🔄 VolumeManager: Output device changed!")
-          
               guard let managerPointer = inClientData?.assumingMemoryBound(to: VolumeManager.self) else {
                   return noErr
               }
@@ -150,13 +137,13 @@ class VolumeManager: ObservableObject {
           selfPointer.initialize(to: self)
           
           var address = AudioObjectPropertyAddress(
-              mSelector: kAudioHardwarePropertyDefaultOutputDevice,  // ← Отслеживаем изменения default устройства
+              mSelector: kAudioHardwarePropertyDefaultOutputDevice,
               mScope: kAudioObjectPropertyScopeGlobal,
               mElement: kAudioObjectPropertyElementMain
           )
           
           let status = AudioObjectAddPropertyListener(
-              AudioObjectID(kAudioObjectSystemObject),  // ← System object (не конкретное устройство)
+              AudioObjectID(kAudioObjectSystemObject),
               &address,
               callback,
               selfPointer
@@ -164,24 +151,16 @@ class VolumeManager: ObservableObject {
           
           if status != noErr {
               print("⚠️ VolumeManager: Failed to add device change listener, status: \(status)")
-          } else {
-              print("✅ VolumeManager: Device change monitoring started")
-          }
+          } 
     }
     
     private func handleDeviceChange() {
-        print("🔄 VolumeManager: Reinitializing for new device...")
-        
-        // Удаляем старые listeners
         removeVolumeListeners()
         
-        // Получаем новое устройство и настраиваем listeners
         deviceID = getDefaultOutputDevice()
         
         if deviceID != 0 {
             setupVolumeMonitoring()
-            updateCurrentVolume()
-            print("✅ VolumeManager: Successfully switched to new device (ID: \(deviceID))")
         } else {
             print("❌ VolumeManager: Failed to get new device")
         }
@@ -193,8 +172,6 @@ class VolumeManager: ObservableObject {
                let clientData = listenerClientData else {
              return
          }
-         
-         print("🧹 VolumeManager: Removing old listeners...")
          
          // Volume listener
          var volumeAddress = AudioObjectPropertyAddress(
@@ -239,72 +216,7 @@ class VolumeManager: ObservableObject {
             return 0
         }
         
-        if let deviceName = getDeviceName(deviceID) {
-              print("🎧 VolumeManager: Current device: \(deviceName) (ID: \(deviceID))")
-          }
-        
         return deviceID
-    }
-    
-//    private func getDeviceName(_ deviceID: AudioDeviceID) -> String? {
-//        var address = AudioObjectPropertyAddress(
-//            mSelector: kAudioObjectPropertyName,
-//            mScope: kAudioObjectPropertyScopeGlobal,
-//            mElement: kAudioObjectPropertyElementMain
-//        )
-//        
-//        var name: CFString = "" as CFString
-//        var nameSize = UInt32(MemoryLayout<CFString>.size)
-//        
-//        let status = AudioObjectGetPropertyData(
-//            deviceID,
-//            &address,
-//            0,
-//            nil,
-//            &nameSize,
-//            &name
-//        )
-//        
-//        return status == noErr ? (name as String) : nil
-//    }
-    
-    private func getDeviceName(_ deviceID: AudioDeviceID) -> String? {
-        var address = AudioObjectPropertyAddress(
-            mSelector: kAudioObjectPropertyName,
-            mScope: kAudioObjectPropertyScopeGlobal,
-            mElement: kAudioObjectPropertyElementMain
-        )
-
-        var dataSize: UInt32 = 0
-        var status = AudioObjectGetPropertyDataSize(
-            deviceID,
-            &address,
-            0,
-            nil,
-            &dataSize
-        )
-
-        guard status == noErr, dataSize == UInt32(MemoryLayout<CFString?>.size) else {
-            return nil
-        }
-
-        var cfName: CFString? = nil
-        status = withUnsafeMutablePointer(to: &cfName) { ptr -> OSStatus in
-            var localSize = dataSize
-            return AudioObjectGetPropertyData(
-                deviceID,
-                &address,
-                0,
-                nil,
-                &localSize,
-                ptr
-            )
-        }
-
-        guard status == noErr, let name = cfName as String? else {
-            return nil
-        }
-        return name
     }
     
     private func updateCurrentVolume() {
@@ -334,19 +246,14 @@ class VolumeManager: ObservableObject {
         if status == noErr {
             let muted = checkIfMuted()
             
-            print("🔊 VolumeManager: Current volume: \(volume), previous: \(lastVolume), muted: \(muted)")
-            
             if abs(volume - lastVolume) > 0.001 || muted != isMuted {
                 lastVolume = volume
                 currentVolume = volume
                 isMuted = muted
-                
-                print("🔊 VolumeManager: Volume changed to \(Int(volume * 100))% (muted: \(muted))")
-                
+                                
                 debounceTimer?.invalidate()
                 debounceTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: false) { [weak self] _ in
                     guard let self = self else { return }
-                    print("📤 VolumeManager: Sending volume event: \(volume)")
                     self.volumeChanged.send(volume)
                 }
             }
@@ -412,27 +319,10 @@ class VolumeManager: ObservableObject {
             return "speaker.wave.3.fill"
         }
     }
-
-	func getDeviceIcon() -> String? {
-        let deviceName = getDeviceName(deviceID)?.lowercased() ?? ""
-
-		if deviceName.contains("headphone") || deviceName.contains("earpod") {
-			return "headphones"
-		} else if deviceName.contains("airpods") || deviceName.contains("airpod") {
-			return "airpods"
-		} else if deviceName.contains("earpods") {
-			return "earpods"
-		} else if deviceName.contains("earbuds") {
-			return "earbuds"
-		}
-
-		return nil
-	}
     
     deinit {
         print("🧹 VolumeManager: Cleaning up...")
         
-        // Удаляем volume listeners
         removeVolumeListeners()
         
         // Удаляем device change listener
