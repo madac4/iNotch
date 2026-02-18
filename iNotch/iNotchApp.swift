@@ -1,5 +1,5 @@
 //
-//  iNotchApp.swift
+//  iNotchApp.swiftp
 //  iNotch
 //
 //  Created by Petru Orbu on 18.11.2025.
@@ -13,7 +13,7 @@ import Sparkle
 @main
 struct iNotchApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @Default(.menubarIcon) var showMenuBarIcon
+    @Default(.showMenuBarIcon) var showMenuBarIcon
     @Environment(\.openWindow) var openWindow
     
     // MARK: - Sparkle Updater Controller (NEW)

@@ -95,7 +95,7 @@ public enum DeviceIconMode: String, CaseIterable, Identifiable, Defaults.Seriali
 	public var id: String { self.rawValue }
 }
 
-public enum VolumeAnimationSpeed: String, CaseIterable, Identifiable, Defaults.Serializable {
+public enum AnimationSpeed: String, CaseIterable, Identifiable, Defaults.Serializable {
 	case smooth = "Smooth"
 	case fast = "Fast"
 	case instant = "Instant"

@@ -22,7 +22,6 @@ struct ContentView: View {
     
     private let zeroHeightHoverPadding: CGFloat = 10
 
-    
     // MARK: - Body
     
     var body: some View {
@@ -52,7 +51,15 @@ struct ContentView: View {
                 }
             
             
+            let currentNotchHeight: CGFloat = vm.notchState == .open 
+                ? openNotchSize.height 
+                : (coordinator.sneakPeek.show && coordinator.sneakPeek.type == .music 
+                    ? vm.closedNotchSize.height + 30 
+                    : vm.closedNotchSize.height)
+            
             mainLayout
+                .frame(height: currentNotchHeight, alignment: .top)
+                .contentShape(Rectangle())
                 .scaleEffect(
                     vm.notchState == .closed && isHovering ? 1.08 : 1.0,
                     anchor: .top
@@ -105,6 +112,8 @@ struct ContentView: View {
                     ? vm.closedNotchSize.width * 1.8
                     : vm.closedNotchSize.width * 1.3
                 
+                let connectivityWidth: CGFloat = Defaults[.warnOnLowDeviceBattery] && coordinator.sneakPeek.value < Defaults[.lowDeviceBatteryThreshold] && !coordinator.sneakPeek.title.isEmpty ? vm.closedNotchSize.width * 1.8 : vm.closedNotchSize.width * 1.3
+                
                 switch coordinator.sneakPeek.type {
                     case .volume:
                         VolumeSneakPeekView(state: coordinator.sneakPeek)
@@ -130,7 +139,7 @@ struct ContentView: View {
                                removal: .scale(scale: 0.95).combined(with: .opacity)
                            ))
                            .zIndex(100)
-                           .frame(width: Defaults[.showConnectionState] ? vm.closedNotchSize.width * 2 : vm.closedNotchSize.width * 1.3, height: vm.closedNotchSize.height)
+                           .frame(width: connectivityWidth, height: vm.closedNotchSize.height)
                     case .music:
                         EmptyView()
                     
@@ -229,30 +238,34 @@ struct ContentView: View {
                 haptics.toggle()
             }
             
-            withAnimation(.bouncy.speed(1.2)) {
-                isHovering = true
-            }
-            
-            let task = DispatchWorkItem {
-                guard vm.notchState == .closed, isHovering else { return }
-                vm.open()
-            }
-            
-            hoverWorkItem = task
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: task)
+				withAnimation(.bouncy.speed(1.2)) {
+					isHovering = true
+				}
+				
+				if Defaults[.openOnHover] {
+					let task = DispatchWorkItem {
+						guard vm.notchState == .closed, isHovering else { return }
+						vm.open()
+					}
+				
+				hoverWorkItem = task
+				DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: task)
+				}
         } else {
-            withAnimation(.bouncy.speed(1.2)) {
-                isHovering = false
-            }
-            
-            if vm.notchState == .open {
-                vm.close()
-            }
+			withAnimation(.bouncy.speed(1.2)) {
+				isHovering = false
+			}
+			
+			if Defaults[.openOnHover] {
+				if vm.notchState == .open {
+					vm.close()
+				}
+			}
         }
     }
     
     private func handleUpGesture(translation: CGFloat, phase: NSEvent.Phase){
-        guard vm.notchState == .open, !vm.isHoveringCalendar else {return}
+        guard vm.notchState == .open, !vm.isHoveringCalendar, Defaults[.allowGestures] else {return}
         
         withAnimation(.smooth){
             vm.gestureProgress = (translation / Defaults[.gestureSensitivity]) * -20
@@ -280,7 +293,7 @@ struct ContentView: View {
     }
     
     private func handleDownGesture(translation: CGFloat, phase: NSEvent.Phase){
-        guard vm.notchState == .closed, !coordinator.sneakPeek.show else {return}
+        guard vm.notchState == .closed, !coordinator.sneakPeek.show, Defaults[.allowGestures] else {return}
         
         withAnimation(.smooth){
             vm.gestureProgress = (translation / Defaults[.gestureSensitivity]) * 20

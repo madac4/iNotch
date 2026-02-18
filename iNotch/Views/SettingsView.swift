@@ -22,7 +22,7 @@
                         Color(red: 0.64, green: 0.63, blue: 0.59)
                     ]
                 )
-                
+
 				Section("Notifications") {
                     SettingsNavigationItem.withLinearGradient(
                         value: "Battery",
@@ -39,8 +39,8 @@
                         icon: "airpodsmax",
                         title: "Connectivity",
                         gradientColors: [
-                            Color(red: 0.97, green: 0.55, blue: 0.4),
-                            Color(red: 1, green: 0.71, blue: 0.53)
+                            Color(red: 0.07, green: 0.72, blue: 0.49),
+                            Color(red: 0.38, green: 0.9, blue: 0.7)
                         ]
                     )
 					

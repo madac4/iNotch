@@ -23,10 +23,28 @@ struct MusicPlayerOpen: View {
     @State private var lastDragged: Date = Date()
     @State private var dragging: Bool = false
     
+    // State для hover на метаданных и обложке
+    @State private var metadataHovered = false
+    @State private var artworkHovered = false
+    
     var body: some View {
         VStack(spacing: 12) {
             HStack(alignment: .top, spacing: 8) {
                 AlbumArtView(size: 46, cornerRadius: 12)
+                    .scaleEffect(artworkHovered ? 1.05 : 1.0)
+                    .opacity(artworkHovered ? 0.9 : 1.0)
+                    .animation(.spring(response: 0.3, dampingFraction: 0.7), value: artworkHovered)
+                    .onHover { hovering in
+                        artworkHovered = hovering
+                        if hovering {
+                            NSCursor.pointingHand.push()
+                        } else {
+                            NSCursor.pointingHand.pop()
+                        }
+                    }
+                    .onTapGesture {
+                        musicManager.openMusicApp()
+                    }
                 
                 VStack(alignment: .leading, spacing: 4) {
                     MarqueeText(
@@ -41,6 +59,27 @@ struct MusicPlayerOpen: View {
                         .font(.system(size: 14))
                         .foregroundColor(.gray)
                         .lineLimit(1)
+                }
+                .id(musicManager.songTitle + musicManager.artistName)
+                .transition(.asymmetric(
+                    insertion: .opacity.combined(with: .offset(x: 20)),
+                    removal: .opacity.combined(with: .offset(x: -20))
+                ))
+                .animation(.spring(response: 0.5, dampingFraction: 0.8), value: musicManager.songTitle)
+                .contentShape(Rectangle())
+                .scaleEffect(metadataHovered ? 1.02 : 1.0)
+                .opacity(metadataHovered ? 0.8 : 1.0)
+                .animation(.spring(response: 0.3, dampingFraction: 0.7), value: metadataHovered)
+                .onHover { hovering in
+                    metadataHovered = hovering
+                    if hovering {
+                        NSCursor.pointingHand.push()
+                    } else {
+                        NSCursor.pointingHand.pop()
+                    }
+                }
+                .onTapGesture {
+                    musicManager.openMusicApp()
                 }
                 
                 Spacer()

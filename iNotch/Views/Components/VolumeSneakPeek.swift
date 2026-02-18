@@ -13,10 +13,10 @@ struct VolumeSneakPeekView: View {
     let state: SneakPeekState
 
 	@Default(.showVolumePercentage) var showVolumePercentage
-	@Default(.volumeAnimationSpeed) var volumeAnimationSpeed
 	@Default(.volumeProgressColor) var volumeProgressColor
 	@Default(.showVolumeProgress) var showVolumeProgress
 	@Default(.showVolumeLabel) var showVolumeLabel
+	@Default(.animationSpeed) var animationSpeed
 	@Default(.volumeIconMode) var volumeIconMode
 
 	private let volumeManager = VolumeManager.shared
@@ -55,7 +55,7 @@ struct VolumeSneakPeekView: View {
 			.font(.system(size: 12, weight: .medium))
 			.foregroundColor(state.valueColor)
 			.contentTransition(.numericText(value: Double(state.value)))
-			.animation(.smooth(duration: volumeAnimationSpeed.animationDuration), value: state.value)
+			.animation(.smooth(duration: animationSpeed.animationDuration), value: state.value)
 			.frame(width: 36, alignment: .trailing)
 			.monospacedDigit()
 			.lineLimit(1)
@@ -72,7 +72,7 @@ struct VolumeSneakPeekView: View {
 				RoundedRectangle(cornerRadius: 2)
 					.fill(progressBarColor)
 					.frame(width: geometry.size.width * CGFloat(state.value) / 100, height: 4)
-					.animation(.smooth(duration: volumeAnimationSpeed.animationDuration), value: state.value)
+					.animation(.smooth(duration: animationSpeed.animationDuration), value: state.value)
 			}
 		}
 		.frame(width: 64, height: 4)

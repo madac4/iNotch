@@ -195,6 +195,33 @@ final class NowPlayingController: ObservableObject, MediaControllerProtocol {
         let payload = update.payload
         let diff = update.diff ?? false
         
+        let isPlaying = payload.playing ?? self.playbackState.isPlaying
+        let hasDuration = (payload.duration ?? 0) > 0
+        let hasArtwork = (payload.artworkData?.isEmpty == false)
+        let isEmptyMetadata = payload.title?.isEmpty != false && payload.artist?.isEmpty != false && payload.album?.isEmpty != false
+        let hasExistingTrack = self.playbackState.title != "No Track Playing"
+        
+        // Кейс: Активный переход или лаг обновления. Сохраняем метаданные если есть признаки жизни.
+        if !diff && isEmptyMetadata && (isPlaying || hasDuration || hasArtwork) && hasExistingTrack {
+            var currentState = self.playbackState
+            currentState.isPlaying = isPlaying
+            currentState.currentTime = payload.elapsedTime ?? self.playbackState.currentTime
+            if let rate = payload.playbackRate, rate > 0 {
+                currentState.playbackRate = rate
+            }
+            if let dateString = payload.timestamp,
+               let date = ISO8601DateFormatter().date(from: dateString) {
+                currentState.lastUpdated = date
+            }
+            // Artwork обновляем только если пришёл новый
+            if let artworkDataString = payload.artworkData {
+                currentState.artwork = Data(base64Encoded: artworkDataString.trimmingCharacters(in: .whitespacesAndNewlines))
+            }
+            
+            self.playbackState = currentState
+            return
+        }
+        
         var newPlaybackState = PlaybackState(bundleIdentifier: playbackState.bundleIdentifier)
         
         // Обновляем поля (с поддержкой diff mode)

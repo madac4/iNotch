@@ -19,7 +19,6 @@ class NotchSpaceManager {
     
     private init() {
         notchSpace = CGSSpace(level: 2147483647)
-        print("✅ NotchSpaceManager: Создано пространство с максимальным уровнем")
     }
     
     deinit{

@@ -3,17 +3,15 @@ import Defaults
 
 struct SoundSettingsView: View {
     @Default(.enableVolumeSneakPeek) var enableVolumeSneakPeek
-    @Default(.volumeIconMode) var volumeIconMode
     @Default(.showVolumePercentage) var showVolumePercentage
-    @Default(.showVolumeLabel) var showVolumeLabel
-    @Default(.showVolumeProgress) var showVolumeProgress
     @Default(.volumeProgressColor) var volumeProgressColor
+    @Default(.showVolumeProgress) var showVolumeProgress
     @Default(.volumeHUDDuration) var volumeHUDDuration
-    @Default(.volumeAnimationSpeed) var volumeAnimationSpeed
+    @Default(.showVolumeLabel) var showVolumeLabel
+    @Default(.volumeIconMode) var volumeIconMode
     
     @State private var selectedIconMode: VolumeIconMode = Defaults[.volumeIconMode]
     @State private var selectedProgressColor: VolumeProgressColor = Defaults[.volumeProgressColor]
-    @State private var selectedAnimationSpeed: VolumeAnimationSpeed = Defaults[.volumeAnimationSpeed]
     
     var body: some View {
         Form {
@@ -111,39 +109,6 @@ struct SoundSettingsView: View {
                         ))
                         .padding(.vertical, 4)
                     }
-                    
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Animation Speed")
-                        
-                        HStack(spacing: 8) {
-                            SettingsIconButton(
-                                icon: "tortoise.fill",
-                                label: "Smooth",
-                                isSelected: selectedAnimationSpeed == .smooth
-                            ) {
-                                selectedAnimationSpeed = .smooth
-                                Defaults[.volumeAnimationSpeed] = .smooth
-                            }
-                            
-                            SettingsIconButton(
-                                icon: "hare.fill",
-                                label: "Fast",
-                                isSelected: selectedAnimationSpeed == .fast
-                            ) {
-                                selectedAnimationSpeed = .fast
-                                Defaults[.volumeAnimationSpeed] = .fast
-                            }
-                            
-                            SettingsIconButton(
-                                icon: "bolt.fill",
-                                label: "Instant",
-                                isSelected: selectedAnimationSpeed == .instant
-                            ) {
-                                selectedAnimationSpeed = .instant
-                                Defaults[.volumeAnimationSpeed] = .instant
-                            }
-                        }
-                    }
                 }
                 .animation(.smooth(duration: 0.3), value: enableVolumeSneakPeek)
                 .animation(.smooth(duration: 0.25), value: showVolumeProgress)
@@ -158,7 +123,6 @@ struct SoundSettingsView: View {
         .onAppear {
             selectedIconMode = Defaults[.volumeIconMode]
             selectedProgressColor = Defaults[.volumeProgressColor]
-            selectedAnimationSpeed = Defaults[.volumeAnimationSpeed]
         }
     }
 }

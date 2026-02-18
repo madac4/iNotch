@@ -44,7 +44,6 @@ class NotchCoordinator: ObservableObject {
         }
     }
     
-    
     private var sneakPeekDuration: TimeInterval = 3.0
     private var sneakPeekTask: Task<Void, Never>?
     private var cancellables = Set<AnyCancellable>()
@@ -57,116 +56,97 @@ class NotchCoordinator: ObservableObject {
         setupDeviceConnectionObserver()
     }
     
-private func setupDeviceConnectionObserver() {
-	let deviceManager = ConnectivityManager.shared
-	
-	deviceManager.connectionEvent
-		.receive(on: DispatchQueue.main)
-		.sink { [weak self] event in
-			print("📨 NotchCoordinator: Received device connection event")
-			
-			guard Defaults[.enableDeviceConnectionSneakPeek] else {
-				print("   ⚠️ Device connection notifications are disabled")
-				print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
-				return
-			}
-			
-			switch event {
-			case .connected(let deviceInfo):
-				print("   └─ Event type: .connected")
-				print("   └─ Device: \(deviceInfo.name)")
-				print("   └─ ID: \(deviceInfo.deviceID)")
-				print("   └─ Battery: \(deviceInfo.batteryLevel?.description ?? "N/A")%")
-				self?.handleDeviceConnected(deviceInfo)
-			case .disconnected(let deviceInfo):
-				print("   └─ Event type: .disconnected")
-				print("   └─ Device: \(deviceInfo.name)")
-				print("   └─ ID: \(deviceInfo.deviceID)")
-				// Handle disconnection if needed
-				break
-			case .moved(let deviceInfo, let toDevice):
-				print("   └─ Event type: .moved")
-				print("   └─ Device: \(deviceInfo.name)")
-				print("   └─ ID: \(deviceInfo.deviceID)")
-				print("   └─ Moved to: \(toDevice ?? "Unknown")")
-				self?.handleDeviceMoved(deviceInfo, toDevice: toDevice)
-			case .batteryUpdated(let deviceInfo):
-				print("   └─ Event type: .batteryUpdated")
-				print("   └─ Device: \(deviceInfo.name)")
-				print("   └─ Battery: \(deviceInfo.batteryLevel?.description ?? "N/A")%")
-				// Optionally show battery update
-				break
-			}
-			print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
-		}
-		.store(in: &cancellables)
-	print("✅ NotchCoordinator: Device connection observer setup complete")
-}
+    private func setupDeviceConnectionObserver() {
+        let deviceManager = ConnectivityManager.shared
+        
+        deviceManager.connectionEvent
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] event in
+                guard Defaults[.enableConnectivitySneakPeek] else {return}
 
-private func handleDeviceConnected(_ deviceInfo: DeviceInfo) {
-	print("🎯 NotchCoordinator: Handling device connected...")
-	print("   └─ Device: \(deviceInfo.name)")
-	print("   └─ Battery: \(deviceInfo.batteryLevel?.description ?? "N/A")%")
-    
-    print(deviceInfo)
-	
-	let duration = Defaults[.deviceConnectionHUDDuration]
-	
-	let icon = getDeviceIcon(for: deviceInfo.name)
-	print("   └─ Icon: \(icon)")
-	
-	print("   └─ Calling showSneakPeek...")
-    
-	showSneakPeek(
-		type: .deviceConnection,
-		value: deviceInfo.batteryLevel ?? 0,
-		icon: icon,
-        title: deviceInfo.isBluetooth ? "Connected" : "Disconnected",
-		duration: duration,
-//			deviceName: deviceInfo.name,
-//			deviceBattery: deviceInfo.batteryLevel,
-//			canReconnect: false
-	)
-	print("✅ NotchCoordinator: Device connected handler complete")
-}
+                switch event {
+                case .connected(let deviceInfo):
+                    self?.handleDeviceConnection(deviceInfo)
+                case .disconnected(let deviceInfo):
+                    if Defaults[.showDisconnectNotification] {
+                        self?.handleDeviceConnection(deviceInfo)
+                    }
+                    break
+                case .batteryUpdated(let deviceInfo):
+                    self?.handleDeviceBatteryUpdated(deviceInfo)
+                }
+            }
+            .store(in: &cancellables)
+    }
 
-private func handleDeviceMoved(_ deviceInfo: DeviceInfo, toDevice: String?) {
-	print("🎯 NotchCoordinator: Handling device moved...")
-	print("   └─ Device: \(deviceInfo.name)")
-	print("   └─ Battery: \(deviceInfo.batteryLevel?.description ?? "N/A")%")
-	print("   └─ Moved to: \(toDevice ?? "Unknown")")
-	
-	let duration = Defaults[.deviceConnectionHUDDuration]
-	print("   └─ Duration: \(duration)s")
-	
-	let icon = getDeviceIcon(for: deviceInfo.name)
-	print("   └─ Icon: \(icon)")
-	
-	let title = "Moved to \(toDevice ?? "Other Device")"
-	print("   └─ Title: \(title)")
-	
-	print("   └─ Calling showSneakPeek...")
-	showSneakPeek(
-		type: .deviceConnection,
-		value: deviceInfo.batteryLevel ?? 0,
-		icon: icon,
-		title: title,
-		titleColor: .gray,
-		iconColor: .white,
-		valueColor: .gray,
-		duration: duration,
-//			deviceName: deviceInfo.name,
-//			deviceBattery: deviceInfo.batteryLevel,
-//			canReconnect: true,
-//			movedToDevice: toDevice
-	)
-	print("✅ NotchCoordinator: Device moved handler complete")
-}
+    private func handleDeviceConnection(_ deviceInfo: DeviceInfo) {
+        let duration = Defaults[.connectivityHUDDuration]
+        let icon = getDeviceIcon(for: deviceInfo.name)
 
-    private func getDeviceIcon(for deviceName: String) -> String {
-        let lowercased = deviceName.lowercased()
+		let macBattery = BatteryStatusViewModel.shared.levelBattery
+		let deviceBattery = deviceInfo.batteryLevel
+	
+        if deviceInfo.isBluetooth && deviceBattery == nil {return}
+	
+        if Defaults[.warnOnLowDeviceBattery], let deviceBattery = deviceBattery, deviceBattery <= Defaults[.lowDeviceBatteryThreshold] {
+            handleDeviceLowBattery(deviceInfo)
+        } else {
+            showSneakPeek(
+                type: .deviceConnection,
+                value: deviceInfo.isBluetooth ? deviceBattery ?? 0 : Int(macBattery),
+                icon: icon,
+                title: "",
+                duration: duration
+            )
+        }
+    }
+
+    private func handleDeviceLowBattery(_ deviceInfo: DeviceInfo) {
+        if Defaults[.playSoundOnLowDeviceBattery] {
+            playLowBatterySound()
+        }
+
+        let duration = Defaults[.connectivityHUDDuration]
+        let icon = getDeviceIcon(for: deviceInfo.name, isBluetooth: deviceInfo.isBluetooth)
             
+        showSneakPeek(
+            type: .deviceConnection,
+            value: deviceInfo.batteryLevel!,
+            icon: icon,
+            title: "Low Battery",
+            titleColor: .red,
+            iconColor: .red,
+            valueColor: .red,
+            duration: duration
+        )
+    }
+
+	private func handleDeviceBatteryUpdated(_ deviceInfo: DeviceInfo) {
+		guard let batteryLevel = deviceInfo.batteryLevel else { return }
+		
+		let duration = Defaults[.connectivityHUDDuration]
+		let icon = getDeviceIcon(for: deviceInfo.name, isBluetooth: deviceInfo.isBluetooth)
+		
+		// Check if battery is low
+		if Defaults[.warnOnLowDeviceBattery], batteryLevel <= Defaults[.lowDeviceBatteryThreshold] {
+			handleDeviceLowBattery(deviceInfo)
+		} else {
+			// Update sneak peek with new battery level (normal connection state)
+			showSneakPeek(
+				type: .deviceConnection,
+				value: batteryLevel,
+				icon: icon,
+				title: "",
+				duration: duration
+			)
+		}
+    }
+
+
+    private func getDeviceIcon(for deviceName: String, isBluetooth: Bool = false) -> String {
+        let lowercased = deviceName.lowercased()
         let icon: String
+            
         if lowercased.contains("airpods pro") {
             icon = "airpodspro"
         } else if lowercased.contains("airpods max") {
@@ -178,7 +158,7 @@ private func handleDeviceMoved(_ deviceInfo: DeviceInfo, toDevice: String?) {
         } else if lowercased.contains("earbud") {
             icon = "earbuds"
         } else if lowercased.contains("macbook") {
-            icon = "macbook.gen2"
+            icon = "macbook"
         } else {
             icon = "headphones"
         }
@@ -391,7 +371,7 @@ private func handleDeviceMoved(_ deviceInfo: DeviceInfo, toDevice: String?) {
 		let animationSpeed: TimeInterval
 
 		if type == .volume {
-			animationSpeed = Defaults[.volumeAnimationSpeed].animationDuration
+			animationSpeed = Defaults[.animationSpeed].animationDuration
 		} else {
 			animationSpeed = 0.3
 		}	
